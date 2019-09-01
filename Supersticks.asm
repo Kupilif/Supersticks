@@ -1,3 +1,9 @@
+; Calling convention -- STDCALL
+;   Argument-passing order
+;       Right to left
+;   Stack-maintenance responsibility
+;       Called function pops its own arguments from the stack
+
     org 100h
 
 include 'Game\Game.h.asm'

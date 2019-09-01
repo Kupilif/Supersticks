@@ -1,5 +1,6 @@
 Game.Public.Initialize:
     call Game.UI.Public.Initialize
+    call Game.Logic.Public.Initialize
     ret
 
 Game.Public.Finalize:

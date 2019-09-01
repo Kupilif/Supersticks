@@ -1,2 +1,2 @@
-Display.bVideoMode db  ?
-Display.bVideoPage  db  ?
+Display.bVideoMode db ?
+Display.bVideoPage db ?
