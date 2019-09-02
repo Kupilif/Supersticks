@@ -1,5 +1,6 @@
 Game.UI.Public.Initialize:
     call Display.Public.Initialize
+    call Display.Public.Clear
     ret
 
 Game.UI.Public.Finalize:
