@@ -5,8 +5,8 @@
 ;   AH -- Width of screen, in character columns
 ;   BH -- Current active video page
 Display.Private.GetCurrentVideoInfo:
-    mov ah, 0Fh
-    int 10h
+    mov ah, 0x0F
+    int 0x10
     ret
 
 ; Parameters
@@ -14,8 +14,8 @@ Display.Private.GetCurrentVideoInfo:
 ; Returns
 ;   None
 Display.Private.SetVideoMode:
-    mov ah, 00h
-    int 10h
+    mov ah, 0x00
+    int 0x10
     ret
 
 ; Parameters
@@ -23,6 +23,6 @@ Display.Private.SetVideoMode:
 ; Returns
 ;   None
 Display.Private.SetActiveVideoPage:
-    mov ah, 05h
-    int 10h
+    mov ah, 0x05
+    int 0x10
     ret

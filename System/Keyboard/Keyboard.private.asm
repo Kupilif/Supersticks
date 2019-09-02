@@ -3,8 +3,8 @@
 ; Returns
 ;   AL -- Read character
 Keyboard.Private.ClearInputBufferAndReadCharacter:
-    mov ax, 0C08h
-    int 21h
+    mov ax, 0x0C08
+    int 0x21
     ret
 
 ; Parameters
@@ -15,6 +15,6 @@ Keyboard.Private.ClearInputBufferAndReadCharacter:
 ;   If result equals zero then extended ASCII input acquired.
 ;   Should be called second time to retreive extended input
 Keyboard.Private.ReadCharacter:
-    mov ah, 08h
-    int 21h
+    mov ah, 0x08
+    int 0x21
     ret

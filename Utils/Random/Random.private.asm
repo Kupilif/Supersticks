@@ -6,6 +6,6 @@
 ;   DH -- seconds (0 - 59)
 ;   DL -- Hundredths of a second (0 - 99)
 Random.Private.GetSystemTime:
-    mov ah, 2Ch
-    int 21h
+    mov ah, 0x2C
+    int 0x21
     ret
