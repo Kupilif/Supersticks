@@ -6,10 +6,11 @@ Random.Public.Initialize:
 ; Parameters
 ;   Stack1 -- Upper bound of generated number
 ; Returns
-;   DX -- Generated number
+;   AX -- Generated number
 Random.Public.Get:
     push bp
     mov bp, sp
+    push dx
 
     mov ax, [Random.wPreviousNumber]
     rol ax, Random.MULTIPLICATION_COMPONENT
@@ -18,7 +19,9 @@ Random.Public.Get:
 
     xor dx, dx
     div word [bp + 4]
+    mov ax, dx
 
+    pop dx
     pop bp
     ret 2
 
