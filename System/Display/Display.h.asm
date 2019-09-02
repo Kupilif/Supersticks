@@ -1,1 +1,1 @@
-
+Display.VM_GRAPHIC_640_480_256 = 13h

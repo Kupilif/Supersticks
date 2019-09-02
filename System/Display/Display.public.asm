@@ -2,7 +2,7 @@ Display.Public.Initialize:
     call Display.Private.GetCurrentVideoInfo
     mov [Display.bVideoMode], al
     mov [Display.bVideoPage], bh
-    mov al, 13h
+    mov al, Display.VM_GRAPHIC_640_480_256
     call Display.Private.SetVideoMode
     ret
 
