@@ -93,6 +93,7 @@ Display.Public.ConfigureSticksPosition:
     mul bx
     neg ax
     add ax, Display.WIDTH_PX
+    add ax, [Display.wSticksGap]
     shr ax, 1
     mov [Display.wFirstStickOffsetFromBasePosition], ax
     add ax, [Display.wFirstStickBasePosition]
@@ -102,5 +103,70 @@ Display.Public.ConfigureSticksPosition:
     pop ax
     pop bp
     ret 2
+
+; Parameters
+;   Stack1 -- Sticks count
+;   Stack2 -- Sticks color
+; Returns
+;   None
+; Remarks
+;   Sticks size and position should be
+;   configured before using this function
+Display.Public.DrawSticks:
+    push bp
+    mov bp, sp
+    push es
+    push di
+    push ax
+    push bx
+    push cx
+
+    mov ax, Display.VIDEO_MEMORY_SEGMENT
+    mov es, ax
+    mov di, [Display.wFirstStickOffsetPosition]
+
+    mov cx, [Display.wStickHeight]
+    .Display.Public.DrawSticks.DrawRowsLoopStart:
+        push cx
+
+        mov ax, [bp + 6]
+        xor cx, cx
+        .Display.Public.DrawSticks.DrawStickInRowLoopStart:
+            push cx
+
+            mov cx, [Display.wStickWidth]
+            cld
+            rep stosb
+
+            pop cx
+            inc cx
+
+            mov bx, cx
+            xor bx, [bp + 4]
+            jnz @F
+            mov ax, Display.CLEAR_COLOR
+
+        @@:
+            mov bx, cx
+            xor bx, [Display.wSticksMaximumCount]
+
+            jz .Display.Public.DrawSticks.DrawStickInRowLoopEnd
+            add di, [Display.wSticksGap]
+            jmp .Display.Public.DrawSticks.DrawStickInRowLoopStart
+        .Display.Public.DrawSticks.DrawStickInRowLoopEnd:
+
+        add di, [Display.wFirstStickOffsetFromBasePosition]
+        add di, [Display.wFirstStickOffsetFromBasePosition]
+
+        pop cx
+        loop .Display.Public.DrawSticks.DrawRowsLoopStart
+
+    pop cx
+    pop bx
+    pop ax
+    pop di
+    pop es
+    pop bp
+    ret 4
 
 include 'System\Display\Display.private.asm'

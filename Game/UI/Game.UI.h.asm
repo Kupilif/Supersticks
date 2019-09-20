@@ -2,5 +2,10 @@ include 'System\Display\Display.h.asm'
 include 'System\Keyboard\Keyboard.h.asm'
 
 Game.UI.STICK_HEIGHT = 50
-Game.UI.STICK_WIDTH = 3
+Game.UI.STICK_WIDTH = 4
 Game.UI.STICKS_GAP = Game.UI.STICK_WIDTH * 2
+
+Game.UI.STICKS_COLOR_EASY_LEVEL = 10
+Game.UI.STICKS_COLOR_MEDIUM_LEVEL = 44
+Game.UI.STICKS_COLOR_HARD_LEVEL = 40
+Game.UI.STICKS_COLOR_TWO_PLAYERS = 42
