@@ -55,7 +55,6 @@ Display.Public.ConfigureSticksSize:
     mov bp, sp
     push ax
     push bx
-    push dx
 
     mov ax, [bp + 4]
     mov [Display.wStickHeight], ax
@@ -66,14 +65,11 @@ Display.Public.ConfigureSticksSize:
 
     mov ax, Display.HEIGHT_PX
     sub ax, [Display.wStickHeight]
-    xor dx, dx
-    mov bx, 2
-    div bx
+    shr ax, 1
     mov bx, Display.WIDTH_PX
     mul bx
     mov [Display.wFirstStickBasePosition], ax
 
-    pop dx
     pop bx
     pop ax
     pop bp
@@ -88,7 +84,6 @@ Display.Public.ConfigureSticksPosition:
     mov bp, sp
     push ax
     push bx
-    push dx
 
     mov ax, [bp + 4]
     mov [Display.wSticksMaximumCount], ax
@@ -98,14 +93,11 @@ Display.Public.ConfigureSticksPosition:
     mul bx
     neg ax
     add ax, Display.WIDTH_PX
-    xor dx, dx
-    mov bx, 2
-    div bx
+    shr ax, 1
     mov [Display.wFirstStickOffsetFromBasePosition], ax
     add ax, [Display.wFirstStickBasePosition]
     mov [Display.wFirstStickOffsetPosition], ax
 
-    pop dx
     pop bx
     pop ax
     pop bp
