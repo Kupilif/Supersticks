@@ -44,4 +44,71 @@ Display.Public.Clear:
     pop es
     ret
 
+; Parameters
+;   Stack1 -- Stick height
+;   Stack2 -- Stick width
+;   Stack3 -- Sticks gap
+; Returns
+;   None
+Display.Public.ConfigureSticksSize:
+    push bp
+    mov bp, sp
+    push ax
+    push bx
+    push dx
+
+    mov ax, [bp + 4]
+    mov [Display.wStickHeight], ax
+    mov ax, [bp + 6]
+    mov [Display.wStickWidth], ax
+    mov ax, [bp + 8]
+    mov [Display.wSticksGap], ax
+
+    mov ax, Display.HEIGHT_PX
+    sub ax, [Display.wStickHeight]
+    xor dx, dx
+    mov bx, 2
+    div bx
+    mov bx, Display.WIDTH_PX
+    mul bx
+    mov [Display.wFirstStickBasePosition], ax
+
+    pop dx
+    pop bx
+    pop ax
+    pop bp
+    ret 6
+
+; Parameters
+;   Stack1 -- Maximum sticks count
+; Returns
+;   None
+Display.Public.ConfigureSticksPosition:
+    push bp
+    mov bp, sp
+    push ax
+    push bx
+    push dx
+
+    mov ax, [bp + 4]
+    mov [Display.wSticksMaximumCount], ax
+
+    mov bx, [Display.wStickWidth]
+    add bx, [Display.wSticksGap]
+    mul bx
+    neg ax
+    add ax, Display.WIDTH_PX
+    xor dx, dx
+    mov bx, 2
+    div bx
+    mov [Display.wFirstStickOffsetFromBasePosition], ax
+    add ax, [Display.wFirstStickBasePosition]
+    mov [Display.wFirstStickOffsetPosition], ax
+
+    pop dx
+    pop bx
+    pop ax
+    pop bp
+    ret 2
+
 include 'System\Display\Display.private.asm'

@@ -1,2 +1,9 @@
 Display.bVideoMode db ?
 Display.bVideoPage db ?
+Display.wStickHeight dw ?
+Display.wStickWidth dw ?
+Display.wSticksGap dw ?
+Display.wFirstStickBasePosition dw ?
+Display.wFirstStickOffsetPosition dw ?
+Display.wFirstStickOffsetFromBasePosition dw ?
+Display.wSticksMaximumCount dw ?
