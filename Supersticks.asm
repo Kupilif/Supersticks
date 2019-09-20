@@ -1,6 +1,6 @@
 ; Calling convention -- STDCALL
 ;   Argument-passing order
-;       Right to left
+;       From last to first
 ;   Stack-maintenance responsibility
 ;       Called function pops its own arguments from the stack
 
