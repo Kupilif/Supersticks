@@ -1,3 +1,5 @@
+include 'System\Display\Display.private.asm'
+
 Display.Public.Initialize:
     push ax
     push bx
@@ -168,5 +170,3 @@ Display.Public.DrawSticks:
     pop es
     pop bp
     ret 4
-
-include 'System\Display\Display.private.asm'

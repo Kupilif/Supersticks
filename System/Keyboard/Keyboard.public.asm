@@ -1,3 +1,5 @@
+include 'System\Keyboard\Keyboard.private.asm'
+
 ; Parameters
 ;   None
 ; Returns
@@ -20,5 +22,3 @@ Keyboard.Public.ReadKey:
 
     pop dx
     ret
-
-include 'System\Keyboard\Keyboard.private.asm'

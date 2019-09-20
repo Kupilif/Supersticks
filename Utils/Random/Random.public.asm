@@ -1,3 +1,5 @@
+include 'Utils\Random\Random.private.asm'
+
 Random.Public.Initialize:
     call Random.Private.GetSystemTime
     mov [Random.wPreviousNumber], dx
@@ -24,5 +26,3 @@ Random.Public.Get:
     pop dx
     pop bp
     ret 2
-
-include 'Utils\Random\Random.private.asm'

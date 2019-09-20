@@ -1,3 +1,7 @@
+include 'System\Display\Display.public.asm'
+include 'System\Keyboard\Keyboard.public.asm'
+include 'Game\UI\Game.UI.private.asm'
+
 Game.UI.Public.Initialize:
     call Display.Public.Initialize
     call Display.Public.Clear
@@ -28,8 +32,3 @@ Game.UI.Public.ConfigureGameScreen:
     pop ax
     pop bp
     ret 2
-
-include 'Game\UI\Game.UI.private.asm'
-
-include 'System\Display\Display.public.asm'
-include 'System\Keyboard\Keyboard.public.asm'
