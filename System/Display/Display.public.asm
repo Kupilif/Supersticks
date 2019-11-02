@@ -215,8 +215,8 @@ Display.Public.PrintString:
 ; Returns
 ;   None
 ; Remarks
-;   If number requires less than specified Minimal digits count
-;   than leading zero symbols would be printed
+;   If number requires less than specified minimal digits
+;   count than leading zero symbols would be printed
 Display.Public.PrintNumber:
     push bp
     mov bp, sp
