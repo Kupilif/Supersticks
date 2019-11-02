@@ -7,3 +7,4 @@ Display.wFirstStickBasePosition dw ?
 Display.wFirstStickOffsetPosition dw ?
 Display.wFirstStickOffsetFromBasePosition dw ?
 Display.wSticksMaximumCount dw ?
+Display.rNumberDigits rb 5

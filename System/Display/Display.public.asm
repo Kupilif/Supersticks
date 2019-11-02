@@ -205,3 +205,72 @@ Display.Public.PrintString:
     pop ax
     pop bp
     ret 8
+
+; Parameters
+;   Stack1 -- Signed number
+;   Stack2 -- Minimal digits count (excluding minus symbol)
+;   Stack3 -- Row
+;   Stack4 -- Column
+;   Stack5 -- Color
+; Returns
+;   None
+; Remarks
+;   If number requires less than specified Minimal digits count
+;   than leading zero symbols would be printed
+Display.Public.PrintNumber:
+    push bp
+    mov bp, sp
+    push ax
+    push bx
+    push cx
+    push si
+
+    push word [bp + 10]
+    push word [bp + 8]
+    call Display.Private.SetCursorPosition
+
+    mov ax, [bp + 4]
+    cmp ax, 0
+    jge @F
+
+    neg ax
+    push ax
+    mov al, Display.SYMBOL_MINUS
+    mov bl, [bp + 12]
+    call Display.Private.PrintCharacter
+    pop ax
+
+@@:
+    call Display.Private.GetDigitsOfNumber
+
+    mov cx, [bp + 6]
+    sub cx, bx
+    cmp cx, 0
+    jle @F
+
+    push bx
+    mov bl, [bp + 12]
+    mov al, Display.SYMBOL_ZERO
+    .Display.Public.PrintNumber.PrintLeadingZeroSymbols:
+        call Display.Private.PrintCharacter
+        loop .Display.Public.PrintNumber.PrintLeadingZeroSymbols
+    pop bx
+
+@@:
+    std
+    mov cx, bx
+    add si, bx
+    sub si, 1
+    mov bl, [bp + 12]
+    .Display.Public.PrintNumber.PrintNumberDigits:
+        lodsb
+        add al, Display.SYMBOL_ZERO
+        call Display.Private.PrintCharacter
+        loop .Display.Public.PrintNumber.PrintNumberDigits
+
+    pop si
+    pop cx
+    pop bx
+    pop ax
+    pop bp
+    ret 10

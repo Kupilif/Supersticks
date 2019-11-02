@@ -3,3 +3,6 @@ Display.WIDTH_PX = 320
 Display.HEIGHT_PX = 200
 Display.VIDEO_MEMORY_SEGMENT = 0xA000
 Display.CLEAR_COLOR = 0
+
+Display.SYMBOL_MINUS = '-'
+Display.SYMBOL_ZERO = '0'

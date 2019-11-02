@@ -60,3 +60,35 @@ Display.Private.PrintCharacter:
     mov ah, 0x0E
     int 0x10
     ret
+
+; Parameters
+;   AX -- Unsigned number which should be divided into digits
+; Returns
+;   BX -- Digits count
+;   SI -- Start address of byte array with digits.
+;       First byte contains last digit
+; Remarks
+;   Each call uses the same memory area for storing digits
+Display.Private.GetDigitsOfNumber:
+    push ax
+    push cx
+    push dx
+
+    mov cx, 10
+    mov bx, Display.rNumberDigits
+    .Display.Private.GetDigitsOfNumber.DivisionLoopStart:
+        xor dx, dx
+        div word cx
+        mov [bx], dl
+
+        inc bx
+        test ax, ax
+        jnz .Display.Private.GetDigitsOfNumber.DivisionLoopStart
+
+    sub bx, Display.rNumberDigits
+    mov si, Display.rNumberDigits
+
+    pop dx
+    pop cx
+    pop ax
+    ret
