@@ -183,8 +183,8 @@ Display.Public.PrintString:
     push bx
     push si
 
-    push word [bp + 6]
     push word [bp + 8]
+    push word [bp + 6]
     call Display.Private.SetCursorPosition
 
     cld
