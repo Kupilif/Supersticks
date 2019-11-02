@@ -176,6 +176,8 @@ Display.Public.DrawSticks:
 ;   Stack2 -- Row
 ;   Stack3 -- Column
 ;   Stack4 -- Color
+; Returns
+;   None
 Display.Public.PrintString:
     push bp
     mov bp, sp
