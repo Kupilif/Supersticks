@@ -253,9 +253,9 @@ Display.Public.PrintNumber:
     push bx
     mov bl, [bp + 12]
     mov al, Display.SYMBOL_ZERO
-    .Display.Public.PrintNumber.PrintLeadingZeroSymbols:
+    .Display.Public.PrintNumber.PrintLeadingZeroSymbolsLoopStart:
         call Display.Private.PrintCharacter
-        loop .Display.Public.PrintNumber.PrintLeadingZeroSymbols
+        loop .Display.Public.PrintNumber.PrintLeadingZeroSymbolsLoopStart
     pop bx
 
 @@:
@@ -264,11 +264,11 @@ Display.Public.PrintNumber:
     add si, bx
     sub si, 1
     mov bl, [bp + 12]
-    .Display.Public.PrintNumber.PrintNumberDigits:
+    .Display.Public.PrintNumber.PrintNumberDigitsLoopStart:
         lodsb
         add al, Display.SYMBOL_ZERO
         call Display.Private.PrintCharacter
-        loop .Display.Public.PrintNumber.PrintNumberDigits
+        loop .Display.Public.PrintNumber.PrintNumberDigitsLoopStart
 
     pop si
     pop cx
