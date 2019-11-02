@@ -170,3 +170,38 @@ Display.Public.DrawSticks:
     pop es
     pop bp
     ret 4
+
+; Parameters
+;   Stack1 -- Address of null-terminated string
+;   Stack2 -- Row
+;   Stack3 -- Column
+;   Stack4 -- Color
+Display.Public.PrintString:
+    push bp
+    mov bp, sp
+    push ax
+    push bx
+    push si
+
+    push word [bp + 6]
+    push word [bp + 8]
+    call Display.Private.SetCursorPosition
+
+    cld
+    mov si, [bp + 4]
+    mov bl, [bp + 10]
+    .Display.Public.PrintString.PrintLoopStart:
+        lodsb
+
+        test al, al
+        jz .Display.Public.PrintString.PrintLoopEnd
+
+        call Display.Private.PrintCharacter
+        jmp .Display.Public.PrintString.PrintLoopStart
+    .Display.Public.PrintString.PrintLoopEnd:
+
+    pop si
+    pop bx
+    pop ax
+    pop bp
+    ret 8
