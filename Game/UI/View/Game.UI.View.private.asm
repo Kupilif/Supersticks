@@ -10,10 +10,10 @@ Game.UI.View.Private.SetGameModeSelector:
     push Game.UI.View.GAME_MODE_SELECT_SCREEN_MODE_1_SELECTOR_COLUMN
     push Game.UI.View.GAME_MODE_SELECT_SCREEN_MODE_1_ROW
     cmp word [bp + 4], Game.UI.GAME_MODE_1
-    je .Game.UI.View.Public.SetGameModeSelector.SelectedMode1
+    je .SelectedMode1
     push Game.UI.View.SYMBOL_CLEAR
     jmp @F
-.Game.UI.View.Public.SetGameModeSelector.SelectedMode1:
+.SelectedMode1:
     push Game.UI.View.SELECTOR_SYMBOL
 @@:
     call Display.Public.PrintCharacter
@@ -22,10 +22,10 @@ Game.UI.View.Private.SetGameModeSelector:
     push Game.UI.View.GAME_MODE_SELECT_SCREEN_MODE_2_SELECTOR_COLUMN
     push Game.UI.View.GAME_MODE_SELECT_SCREEN_MODE_2_ROW
     cmp word [bp + 4], Game.UI.GAME_MODE_2
-    je .Game.UI.View.Public.SetGameModeSelector.SelectedMode2
+    je .SelectedMode2
     push Game.UI.View.SYMBOL_CLEAR
     jmp @F
-.Game.UI.View.Public.SetGameModeSelector.SelectedMode2:
+.SelectedMode2:
     push Game.UI.View.SELECTOR_SYMBOL
 @@:
     call Display.Public.PrintCharacter
@@ -45,10 +45,10 @@ Game.UI.View.Private.SetGameComplexitySelector:
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_1_SELECTOR_COLUMN
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_1_ROW
     cmp word [bp + 4], Game.UI.GAME_COMPLEXITY_1
-    je .Game.UI.View.Private.SetGameComplexitySelector.SelectedComplexity1
+    je .SelectedComplexity1
     push Game.UI.View.SYMBOL_CLEAR
     jmp @F
-.Game.UI.View.Private.SetGameComplexitySelector.SelectedComplexity1:
+.SelectedComplexity1:
     push Game.UI.View.SELECTOR_SYMBOL
 @@:
     call Display.Public.PrintCharacter
@@ -57,10 +57,10 @@ Game.UI.View.Private.SetGameComplexitySelector:
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_2_SELECTOR_COLUMN
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_2_ROW
     cmp word [bp + 4], Game.UI.GAME_COMPLEXITY_2
-    je .Game.UI.View.Private.SetGameComplexitySelector.SelectedComplexity2
+    je .SelectedComplexity2
     push Game.UI.View.SYMBOL_CLEAR
     jmp @F
-.Game.UI.View.Private.SetGameComplexitySelector.SelectedComplexity2:
+.SelectedComplexity2:
     push Game.UI.View.SELECTOR_SYMBOL
 @@:
     call Display.Public.PrintCharacter
@@ -69,10 +69,10 @@ Game.UI.View.Private.SetGameComplexitySelector:
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_3_SELECTOR_COLUMN
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_3_ROW
     cmp word [bp + 4], Game.UI.GAME_COMPLEXITY_3
-    je .Game.UI.View.Private.SetGameComplexitySelector.SelectedComplexity3
+    je .SelectedComplexity3
     push Game.UI.View.SYMBOL_CLEAR
     jmp @F
-.Game.UI.View.Private.SetGameComplexitySelector.SelectedComplexity3:
+.SelectedComplexity3:
     push Game.UI.View.SELECTOR_SYMBOL
 @@:
     call Display.Public.PrintCharacter

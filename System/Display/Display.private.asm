@@ -76,14 +76,14 @@ Display.Private.GetDigitsOfNumber:
 
     mov cx, 10
     mov bx, Display.rNumberDigits
-    .Display.Private.GetDigitsOfNumber.DivisionLoopStart:
+    .DivisionLoopStart:
         xor dx, dx
         div word cx
         mov [bx], dl
 
         inc bx
         test ax, ax
-        jnz .Display.Private.GetDigitsOfNumber.DivisionLoopStart
+        jnz .DivisionLoopStart
 
     sub bx, Display.rNumberDigits
     mov si, Display.rNumberDigits

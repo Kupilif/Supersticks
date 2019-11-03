@@ -128,12 +128,12 @@ Display.Public.DrawSticks:
     mov di, [Display.wFirstStickOffsetPosition]
 
     mov cx, [Display.wStickHeight]
-    .Display.Public.DrawSticks.DrawRowsLoopStart:
+    .DrawRowsLoopStart:
         push cx
 
         mov ax, [bp + 6]
         xor cx, cx
-        .Display.Public.DrawSticks.DrawStickInRowLoopStart:
+        .DrawStickInRowLoopStart:
             push cx
 
             mov cx, [Display.wStickWidth]
@@ -152,16 +152,16 @@ Display.Public.DrawSticks:
             mov bx, cx
             xor bx, [Display.wSticksMaximumCount]
 
-            jz .Display.Public.DrawSticks.DrawStickInRowLoopEnd
+            jz .DrawStickInRowLoopEnd
             add di, [Display.wSticksGap]
-            jmp .Display.Public.DrawSticks.DrawStickInRowLoopStart
-        .Display.Public.DrawSticks.DrawStickInRowLoopEnd:
+            jmp .DrawStickInRowLoopStart
+        .DrawStickInRowLoopEnd:
 
         add di, [Display.wFirstStickOffsetFromBasePosition]
         add di, [Display.wFirstStickOffsetFromBasePosition]
 
         pop cx
-        loop .Display.Public.DrawSticks.DrawRowsLoopStart
+        loop .DrawRowsLoopStart
 
     pop cx
     pop bx
@@ -218,15 +218,15 @@ Display.Public.PrintString:
     cld
     mov si, [bp + 4]
     mov bl, [bp + 10]
-    .Display.Public.PrintString.PrintLoopStart:
+    .PrintLoopStart:
         lodsb
 
         test al, al
-        jz .Display.Public.PrintString.PrintLoopEnd
+        jz .PrintLoopEnd
 
         call Display.Private.PrintCharacter
-        jmp .Display.Public.PrintString.PrintLoopStart
-    .Display.Public.PrintString.PrintLoopEnd:
+        jmp .PrintLoopStart
+    .PrintLoopEnd:
 
     pop si
     pop bx
@@ -279,9 +279,9 @@ Display.Public.PrintNumber:
     push bx
     mov bl, [bp + 12]
     mov al, Display.SYMBOL_ZERO
-    .Display.Public.PrintNumber.PrintLeadingZeroSymbolsLoopStart:
+    .PrintLeadingZeroSymbolsLoopStart:
         call Display.Private.PrintCharacter
-        loop .Display.Public.PrintNumber.PrintLeadingZeroSymbolsLoopStart
+        loop .PrintLeadingZeroSymbolsLoopStart
     pop bx
 
 @@:
@@ -290,11 +290,11 @@ Display.Public.PrintNumber:
     add si, bx
     sub si, 1
     mov bl, [bp + 12]
-    .Display.Public.PrintNumber.PrintNumberDigitsLoopStart:
+    .PrintNumberDigitsLoopStart:
         lodsb
         add al, Display.SYMBOL_ZERO
         call Display.Private.PrintCharacter
-        loop .Display.Public.PrintNumber.PrintNumberDigitsLoopStart
+        loop .PrintNumberDigitsLoopStart
 
     pop si
     pop cx
