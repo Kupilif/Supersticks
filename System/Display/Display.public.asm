@@ -172,6 +172,32 @@ Display.Public.DrawSticks:
     ret 4
 
 ; Parameters
+;   Stack1 -- Character
+;   Stack2 -- Row
+;   Stack3 -- Column
+;   Stack4 -- Color
+; Returns
+;   None
+Display.Public.PrintCharacter:
+    push bp
+    mov bp, sp
+    push ax
+    push bx
+
+    push word [bp + 8]
+    push word [bp + 6]
+    call Display.Private.SetCursorPosition
+
+    mov al, [bp + 4]
+    mov bl, [bp + 10]
+    call Display.Private.PrintCharacter
+
+    pop bx
+    pop ax
+    pop bp
+    ret 8
+
+; Parameters
 ;   Stack1 -- Address of null-terminated string
 ;   Stack2 -- Row
 ;   Stack3 -- Column
