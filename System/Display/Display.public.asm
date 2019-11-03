@@ -7,7 +7,7 @@ Display.Public.Initialize:
     call Display.Private.GetCurrentVideoInfo
     mov [Display.bVideoMode], al
     mov [Display.bVideoPage], bh
-    mov al, Display.VM_GRAPHIC_320_200_256
+    mov al, Display.VIDEO_MODE_GRAPHIC_13
     call Display.Private.SetVideoMode
 
     pop bx
@@ -31,12 +31,12 @@ Display.Public.Clear:
     push ax
     push cx
 
-    mov ax, Display.VIDEO_MEMORY_SEGMENT
+    mov ax, Display.VIDEO_MODE_GRAPHIC_13_MEMORY_SEGMENT
     mov es, ax
     xor di, di
 
-    mov cx, Display.WIDTH_PX * Display.HEIGHT_PX
-    mov al, Display.CLEAR_COLOR
+    mov cx, Display.VIDEO_MODE_GRAPHIC_13_WIDTH_PIXELS * Display.VIDEO_MODE_GRAPHIC_13_HEIGHT_PIXELS
+    mov al, Display.COLOR_CLEAR
     cld
     rep stosb
 
@@ -65,10 +65,10 @@ Display.Public.ConfigureSticksSize:
     mov ax, [bp + 8]
     mov [Display.wSticksGap], ax
 
-    mov ax, Display.HEIGHT_PX
+    mov ax, Display.VIDEO_MODE_GRAPHIC_13_HEIGHT_PIXELS
     sub ax, [Display.wStickHeight]
     shr ax, 1
-    mov bx, Display.WIDTH_PX
+    mov bx, Display.VIDEO_MODE_GRAPHIC_13_WIDTH_PIXELS
     mul bx
     mov [Display.wFirstStickBasePosition], ax
 
@@ -94,7 +94,7 @@ Display.Public.ConfigureSticksPosition:
     add bx, [Display.wSticksGap]
     mul bx
     neg ax
-    add ax, Display.WIDTH_PX
+    add ax, Display.VIDEO_MODE_GRAPHIC_13_WIDTH_PIXELS
     add ax, [Display.wSticksGap]
     shr ax, 1
     mov [Display.wFirstStickOffsetFromBasePosition], ax
@@ -123,7 +123,7 @@ Display.Public.DrawSticks:
     push bx
     push cx
 
-    mov ax, Display.VIDEO_MEMORY_SEGMENT
+    mov ax, Display.VIDEO_MODE_GRAPHIC_13_MEMORY_SEGMENT
     mov es, ax
     mov di, [Display.wFirstStickOffsetPosition]
 
@@ -146,7 +146,7 @@ Display.Public.DrawSticks:
             mov bx, cx
             xor bx, [bp + 4]
             jnz @F
-            mov ax, Display.CLEAR_COLOR
+            mov ax, Display.COLOR_CLEAR
 
         @@:
             mov bx, cx
