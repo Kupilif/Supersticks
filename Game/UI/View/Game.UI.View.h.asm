@@ -1,0 +1,11 @@
+include 'System\Display\Display.h.asm'
+
+Game.UI.View.STICK_HEIGHT = 50
+Game.UI.View.STICK_WIDTH = 4
+Game.UI.View.STICKS_GAP = Game.UI.View.STICK_WIDTH * 2
+
+Game.UI.View.COLOR_STICKS_EASY_LEVEL = 10
+Game.UI.View.COLOR_STICKS_MEDIUM_LEVEL = 44
+Game.UI.View.COLOR_STICKS_HARD_LEVEL = 40
+Game.UI.View.COLOR_STICKS_TWO_PLAYERS = 42
+Game.UI.View.COLOR_TITLE = 15
