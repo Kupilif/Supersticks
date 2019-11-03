@@ -13,12 +13,22 @@ Start:
 
     push Game.UI.GAME_MODE_1
     call Game.UI.View.Public.ShowGameModeSelectScreen
-
     call Keyboard.Public.ReadKey
 
     push Game.UI.GAME_MODE_2
     call Game.UI.View.Public.UpdateGameModeSelectScreen
+    call Keyboard.Public.ReadKey
 
+    push Game.UI.GAME_COMPLEXITY_1
+    call Game.UI.View.Public.ShowGameComplexitySelectScreen
+    call Keyboard.Public.ReadKey
+
+    push Game.UI.GAME_COMPLEXITY_2
+    call Game.UI.View.Public.UpdateGameComplexitySelectScreen
+    call Keyboard.Public.ReadKey
+
+    push Game.UI.GAME_COMPLEXITY_3
+    call Game.UI.View.Public.UpdateGameComplexitySelectScreen
     call Keyboard.Public.ReadKey
 
     call Game.Public.Finalize
