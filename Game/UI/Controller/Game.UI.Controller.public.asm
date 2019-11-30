@@ -28,11 +28,8 @@ Game.UI.Controller.Public.GetUserInputForSelectionFromList:
 
     @@:
         cmp ax, Keyboard.VK_DOWN
-        jne @F
+        jne .InputLoopStart
         mov ax, Game.UI.Controller.SELECT_NEXT
-        jmp .InputLoopEnd
-
-        jmp .InputLoopStart
     .InputLoopEnd:
 
     ret
