@@ -17,24 +17,24 @@ include 'Game\Game.h.asm'
 Start:
     call Game.Public.Initialize
 
-    push Game.UI.GAME_MODE_1
-    call Game.UI.View.Public.ShowGameModeSelectScreen
+    call Game.UI.Public.SelectGameMode
+    call Display.Public.Clear
+    push 0xF
+    push 0
+    push 0
+    push 1
+    push ax
+    call Display.Public.PrintNumber
     call Keyboard.Public.ReadKey
 
-    push Game.UI.GAME_MODE_2
-    call Game.UI.View.Public.UpdateGameModeSelectScreen
-    call Keyboard.Public.ReadKey
-
-    push Game.UI.GAME_COMPLEXITY_1
-    call Game.UI.View.Public.ShowGameComplexitySelectScreen
-    call Keyboard.Public.ReadKey
-
-    push Game.UI.GAME_COMPLEXITY_2
-    call Game.UI.View.Public.UpdateGameComplexitySelectScreen
-    call Keyboard.Public.ReadKey
-
-    push Game.UI.GAME_COMPLEXITY_3
-    call Game.UI.View.Public.UpdateGameComplexitySelectScreen
+    call Game.UI.Public.SelectGameComplexity
+    call Display.Public.Clear
+    push 0xF
+    push 0
+    push 0
+    push 1
+    push ax
+    call Display.Public.PrintNumber
     call Keyboard.Public.ReadKey
 
     call Game.Public.Finalize
