@@ -3,6 +3,12 @@
 ;       From last to first
 ;   Stack-maintenance responsibility
 ;       Called function pops its own arguments from the stack
+;
+; Identifier naming convention -- Hungarian notation
+;   b -- byte
+;   w -- word
+;   sz -- zero-terminated string
+;   aX -- array of X   
 
     org 100h
 

@@ -75,7 +75,7 @@ Display.Private.GetDigitsOfNumber:
     push dx
 
     mov cx, 10
-    mov bx, Display.rNumberDigits
+    mov bx, Display.abNumberDigits
     .DivisionLoopStart:
         xor dx, dx
         div word cx
@@ -85,8 +85,8 @@ Display.Private.GetDigitsOfNumber:
         test ax, ax
         jnz .DivisionLoopStart
 
-    sub bx, Display.rNumberDigits
-    mov si, Display.rNumberDigits
+    sub bx, Display.abNumberDigits
+    mov si, Display.abNumberDigits
 
     pop dx
     pop cx
