@@ -17,7 +17,7 @@ Game.UI.Public.Finalize:
 Game.UI.Public.SelectGameMode:
     push Game.UI.View.Public.UpdateGameModeSelectScreen
     push Game.UI.View.Public.ShowGameModeSelectScreen
-    push Game.UI.GAME_MODE_COUNT
+    push Game.MODE_COUNT
     push Game.UI.abGameModeSelectOptions
     call Game.UI.Private.SelectFromList
     ret
@@ -29,7 +29,7 @@ Game.UI.Public.SelectGameMode:
 Game.UI.Public.SelectGameComplexity:
     push Game.UI.View.Public.UpdateGameComplexitySelectScreen
     push Game.UI.View.Public.ShowGameComplexitySelectScreen
-    push Game.UI.GAME_COMPLEXITY_COUNT
+    push Game.COMPLEXITY_COUNT
     push Game.UI.abGameComplexitySelectOptions
     call Game.UI.Private.SelectFromList
     ret

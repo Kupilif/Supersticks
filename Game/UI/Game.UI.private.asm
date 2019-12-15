@@ -37,7 +37,7 @@ Game.UI.Private.SelectFromList:
     @@:
         cmp ax, Game.UI.Controller.CANCEL
         jne @F
-        mov ax, Game.UI.CANCEL
+        mov ax, Game.CANCEL_ACTION
         jmp .SelectLoopEnd
 
     @@:
