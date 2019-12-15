@@ -2,7 +2,7 @@
 ;   Stack1 -- Selected game mode
 ; Returns
 ;   None
-Game.UI.View.Private.SetGameModeSelector:
+Game.UI.View.Private.SetGameModeSelectScreenSelector:
     push bp
     mov bp, sp
 
@@ -37,7 +37,7 @@ Game.UI.View.Private.SetGameModeSelector:
 ;   Stack1 -- Selected game complexity
 ; Returns
 ;   None
-Game.UI.View.Private.SetGameComplexitySelector:
+Game.UI.View.Private.SetGameComplexitySelectScreenSelector:
     push bp
     mov bp, sp
 
@@ -73,6 +73,41 @@ Game.UI.View.Private.SetGameComplexitySelector:
     push Game.UI.View.SYMBOL_CLEAR
     jmp @F
 .SelectedComplexity3:
+    push Game.UI.View.SELECTOR_SYMBOL
+@@:
+    call Display.Public.PrintCharacter
+
+    pop bp
+    ret 2
+
+; Parameters
+;   Stack1 -- Selected option
+; Returns
+;   None
+Game.UI.View.Private.SetGameExitConfirmationScreenSelector:
+    push bp
+    mov bp, sp
+
+    push Game.UI.View.SELECTOR_COLOR
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_1_SELECTOR_COLUMN
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_1_ROW
+    cmp word [bp + 4], Game.GAME_EXIT_CONFIRMATION_OPTION_1
+    je .SelectedOption1
+    push Game.UI.View.SYMBOL_CLEAR
+    jmp @F
+.SelectedOption1:
+    push Game.UI.View.SELECTOR_SYMBOL
+@@:
+    call Display.Public.PrintCharacter
+
+    push Game.UI.View.SELECTOR_COLOR
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_2_SELECTOR_COLUMN
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_2_ROW
+    cmp word [bp + 4], Game.GAME_EXIT_CONFIRMATION_OPTION_2
+    je .SelectedOption2
+    push Game.UI.View.SYMBOL_CLEAR
+    jmp @F
+.SelectedOption2:
     push Game.UI.View.SELECTOR_SYMBOL
 @@:
     call Display.Public.PrintCharacter

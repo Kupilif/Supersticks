@@ -44,7 +44,7 @@ Game.UI.View.Public.ShowGameModeSelectScreen:
     call Display.Public.PrintString
 
     push word [bp + 4]
-    call Game.UI.View.Private.SetGameModeSelector
+    call Game.UI.View.Private.SetGameModeSelectScreenSelector
 
     pop bp
     ret 2
@@ -58,7 +58,7 @@ Game.UI.View.Public.UpdateGameModeSelectScreen:
     mov bp, sp
 
     push word [bp + 4]
-    call Game.UI.View.Private.SetGameModeSelector
+    call Game.UI.View.Private.SetGameModeSelectScreenSelector
 
     pop bp
     ret 2
@@ -98,7 +98,7 @@ Game.UI.View.Public.ShowGameComplexitySelectScreen:
     call Display.Public.PrintString
 
     push word [bp + 4]
-    call Game.UI.View.Private.SetGameComplexitySelector
+    call Game.UI.View.Private.SetGameComplexitySelectScreenSelector
 
     pop bp
     ret 2
@@ -112,7 +112,55 @@ Game.UI.View.Public.UpdateGameComplexitySelectScreen:
     mov bp, sp
 
     push word [bp + 4]
-    call Game.UI.View.Private.SetGameComplexitySelector
+    call Game.UI.View.Private.SetGameComplexitySelectScreenSelector
+
+    pop bp
+    ret 2
+
+; Parameters
+;   Stack1 -- Selected option
+; Returns
+;   None
+Game.UI.View.Public.ShowGameExitConfirmationScreen:
+    push bp
+    mov bp, sp
+
+    call Display.Public.Clear
+
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_TITLE_COLOR
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_TITLE_COLUMN
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_TITLE_ROW
+    push Game.UI.View.szGameExitConfirmation
+    call Display.Public.PrintString
+
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_1_COLOR
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_1_COLUMN
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_1_ROW
+    push Game.UI.View.szGameExitConfirmationOption1
+    call Display.Public.PrintString
+
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_2_COLOR
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_2_COLUMN
+    push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_2_ROW
+    push Game.UI.View.szGameExitConfirmationOption2
+    call Display.Public.PrintString
+
+    push word [bp + 4]
+    call Game.UI.View.Private.SetGameExitConfirmationScreenSelector
+
+    pop bp
+    ret 2
+
+; Parameters
+;   Stack1 -- Selected option
+; Returns
+;   None
+Game.UI.View.Public.UpdateGameExitConfirmationScreen:
+    push bp
+    mov bp, sp
+
+    push word [bp + 4]
+    call Game.UI.View.Private.SetGameExitConfirmationScreenSelector
 
     pop bp
     ret 2

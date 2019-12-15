@@ -33,3 +33,15 @@ Game.UI.Public.SelectGameComplexity:
     push Game.UI.abGameComplexitySelectOptions
     call Game.UI.Private.SelectFromList
     ret
+
+; Parameter
+;   None
+; Returns
+;   AX -- Selected option
+Game.UI.Public.ConfirmGameExit:
+    push Game.UI.View.Public.UpdateGameExitConfirmationScreen
+    push Game.UI.View.Public.ShowGameExitConfirmationScreen
+    push Game.GAME_EXIT_CONFIRMATION_OPTION_COUNT
+    push Game.UI.abGameExitConfirmationOptions
+    call Game.UI.Private.SelectFromList
+    ret

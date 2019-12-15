@@ -23,14 +23,18 @@ Supersticks:
     push pTMatchConfiguration
     call Game.Public.ConfigureMatch
     cmp ax, Game.FALSE
-    je .End
+    je .ConfirmExit
 
 .StartMatch:
     push pTMatchConfiguration
     call Game.Public.StartMatch
     jmp .ConfigureMatch
 
-.End:
+.ConfirmExit:
+    call Game.Public.ConfirmExit
+    cmp ax, Game.FALSE
+    je .ConfigureMatch
+
     call Game.Public.Finalize
     ret
 

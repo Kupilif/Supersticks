@@ -80,3 +80,21 @@ Game.Public.StartMatch:
     pop ax
     pop bp
     ret 2
+
+; Parameters
+;   None
+; Returns
+;   AX -- TRUE if game exit confirmed. otherwise FALSE
+Game.Public.ConfirmExit:
+    call Game.UI.Public.ConfirmGameExit
+    cmp ax, Game.GAME_EXIT_CONFIRMATION_OPTION_1
+    jne .ExitNotConfirmed
+
+.ExitConfirmed:
+    mov ax, Game.TRUE
+    jmp @F
+
+.ExitNotConfirmed:
+    mov ax, Game.FALSE
+@@:
+    ret
