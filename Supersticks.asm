@@ -8,38 +8,34 @@
 ;   b -- byte
 ;   w -- word
 ;   sz -- zero-terminated string
-;   aX -- array of X   
+;   T -- type
+;   aXxx -- array of Xxx
+;   pXxx -- pointer to Xxx
 
     org 100h
 
 include 'Game\Game.h.asm'
 
-Start:
+Supersticks:
     call Game.Public.Initialize
 
-    call Game.UI.Public.SelectGameMode
-    call Display.Public.Clear
-    push 0xF
-    push 0
-    push 0
-    push 1
-    push ax
-    call Display.Public.PrintNumber
-    call Keyboard.Public.ReadKey
+.ConfigureMatch:
+    push pTMatchConfiguration
+    call Game.Public.ConfigureMatch
+    cmp ax, Game.FALSE
+    je .End
 
-    call Game.UI.Public.SelectGameComplexity
-    call Display.Public.Clear
-    push 0xF
-    push 0
-    push 0
-    push 1
-    push ax
-    call Display.Public.PrintNumber
-    call Keyboard.Public.ReadKey
+.StartMatch:
+    push pTMatchConfiguration
+    call Game.Public.StartMatch
+    jmp .ConfigureMatch
 
+.End:
     call Game.Public.Finalize
     ret
 
 include 'Game\Game.public.asm'
 include 'Game\Game.di.asm'
 include 'Game\Game.du.asm'
+
+pTMatchConfiguration rb Game.TMatchConfiguration_SIZE_BYTES
