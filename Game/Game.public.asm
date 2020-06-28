@@ -53,31 +53,48 @@ Game.Public.ConfigureMatch:
 Game.Public.StartMatch:
     push bp
     mov bp, sp
-    push ax
-    push bx
 
-    mov bx, [bp + 4]
-    call Display.Public.Clear
-    push 0xF
-    push 0
-    push 0
-    push 1
-    xor ax, ax
-    mov al, [bx + Game.TMatchConfiguration.Mode]
-    push ax
-    call Display.Public.PrintNumber
-    push 0xF
-    push 0
-    push 1
-    push 1
-    xor ax, ax
-    mov al, [bx + Game.TMatchConfiguration.Complexity]
-    push ax
-    call Display.Public.PrintNumber
+    mov byte [Game.pTMatchState + Game.TMatchState.InitialSticksCount], 5
+    mov byte [Game.pTMatchState + Game.TMatchState.CurrentSticksCount], 5
+    mov byte [Game.pTMatchState + Game.TMatchState.IsFirstPlayerTurn], TRUE
+    mov word [Game.pTMatchState + Game.TMatchState.Player1Score], 12
+    mov word [Game.pTMatchState + Game.TMatchState.Player2Score], 27
+    mov word [Game.pTMatchState + Game.TMatchState.Player1Name], Game.szPlayer1Name
+    mov word [Game.pTMatchState + Game.TMatchState.Player2Name], Game.szPlayer2Name
+
+    push word [bp + 4]
+    push Game.pTMatchState
+    call Game.UI.View.Public.ShowGameScreen
     call Keyboard.Public.ReadKey
 
-    pop bx
-    pop ax
+    mov byte [Game.pTMatchState + Game.TMatchState.CurrentSticksCount], 4
+    mov byte [Game.pTMatchState + Game.TMatchState.IsFirstPlayerTurn], FALSE
+    push word [bp + 4]
+    push Game.pTMatchState
+    call Game.UI.View.Public.UpdateGameScreen
+    call Keyboard.Public.ReadKey
+
+    mov byte [Game.pTMatchState + Game.TMatchState.CurrentSticksCount], 3
+    mov byte [Game.pTMatchState + Game.TMatchState.IsFirstPlayerTurn], TRUE
+    push word [bp + 4]
+    push Game.pTMatchState
+    call Game.UI.View.Public.UpdateGameScreen
+    call Keyboard.Public.ReadKey
+
+    mov byte [Game.pTMatchState + Game.TMatchState.CurrentSticksCount], 2
+    mov byte [Game.pTMatchState + Game.TMatchState.IsFirstPlayerTurn], FALSE
+    push word [bp + 4]
+    push Game.pTMatchState
+    call Game.UI.View.Public.UpdateGameScreen
+    call Keyboard.Public.ReadKey
+
+    mov byte [Game.pTMatchState + Game.TMatchState.CurrentSticksCount], 1
+    mov byte [Game.pTMatchState + Game.TMatchState.IsFirstPlayerTurn], TRUE
+    push word [bp + 4]
+    push Game.pTMatchState
+    call Game.UI.View.Public.UpdateGameScreen
+    call Keyboard.Public.ReadKey
+
     pop bp
     ret 2
 

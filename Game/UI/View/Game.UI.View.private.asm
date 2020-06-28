@@ -114,3 +114,85 @@ Game.UI.View.Private.SetGameExitConfirmationScreenSelector:
 
     pop bp
     ret 2
+
+; Parameters
+;   Stack1 -- Pointer to TMatchConfiguration
+; Returns
+;   AX -- Sticks color
+Game.UI.View.Private.GetSticksColor:
+    push bp
+    mov bp, sp
+    push bx
+    push dx
+
+    mov bx, [bp + 4]
+    cmp byte [bx + Game.TMatchConfiguration.Mode], Game.MODE_2
+    jne @F
+    mov ax, Game.UI.View.GAME_SCREEN_STICKS_COLOR_TWO_PLAYERS
+    jmp .ColorSelected
+
+@@:
+    mov dl, [bx + Game.TMatchConfiguration.Complexity]
+    cmp dl, Game.COMPLEXITY_1
+    jne @F
+    mov ax, Game.UI.View.GAME_SCREEN_STICKS_COLOR_COMPLEXITY_1
+    jmp .ColorSelected
+@@:
+    cmp dl, Game.COMPLEXITY_2
+    jne @F
+    mov ax, Game.UI.View.GAME_SCREEN_STICKS_COLOR_COMPLEXITY_2
+    jmp .ColorSelected
+@@:
+    mov ax, Game.UI.View.GAME_SCREEN_STICKS_COLOR_COMPLEXITY_3
+
+.ColorSelected:
+    pop dx
+    pop bx
+    pop bp
+    ret 2
+
+; Parameters
+;   Stack1 -- Pointer to TMatchState
+; Returns
+;   None
+Game.UI.View.Private.SetTurnMarker:
+    push bp
+    mov bp, sp
+    push bx
+
+    mov bx, [bp + 4]
+    cmp byte [bx + Game.TMatchState.IsFirstPlayerTurn], TRUE
+    jne .Player2Turn
+
+.Player1Turn:
+    push Game.UI.View.GAME_SCREEN_TURN_MARKER_COLOR
+    push Game.UI.View.GAME_SCREEN_PLAYER_1_TURN_MARKER_COLUMN
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW
+    push Game.UI.View.GAME_SCREEN_PLAYER_1_TURN_MARKER
+    call Display.Public.PrintCharacter
+
+    push Game.UI.View.GAME_SCREEN_TURN_MARKER_COLOR
+    push Game.UI.View.GAME_SCREEN_PLAYER_2_TURN_MARKER_COLUMN
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW
+    push Game.UI.View.SYMBOL_CLEAR
+    call Display.Public.PrintCharacter
+
+    jmp @F
+
+.Player2Turn:
+    push Game.UI.View.GAME_SCREEN_TURN_MARKER_COLOR
+    push Game.UI.View.GAME_SCREEN_PLAYER_1_TURN_MARKER_COLUMN
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW
+    push Game.UI.View.SYMBOL_CLEAR
+    call Display.Public.PrintCharacter
+
+    push Game.UI.View.GAME_SCREEN_TURN_MARKER_COLOR
+    push Game.UI.View.GAME_SCREEN_PLAYER_2_TURN_MARKER_COLUMN
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW
+    push Game.UI.View.GAME_SCREEN_PLAYER_2_TURN_MARKER
+    call Display.Public.PrintCharacter
+
+@@:
+    pop bx
+    pop bp
+    ret 2

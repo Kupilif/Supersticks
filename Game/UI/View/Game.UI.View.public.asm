@@ -166,18 +166,105 @@ Game.UI.View.Public.UpdateGameExitConfirmationScreen:
     ret 2
 
 ; Parameters
-;   Stack1 -- Maximum sticks count
+;   Stack1 -- Pointer to TMatchState
+;   Stack2 -- Pointer to TMatchConfiguration
 ; Returns
 ;   None 
-Game.UI.View.Public.ConfigureGameScreen:
+Game.UI.View.Public.ShowGameScreen:
     push bp
     mov bp, sp
+    push bx
     push ax
 
-    mov ax, [bp + 4]
-    push ax
+    call Display.Public.Clear
+
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW_COLOR
+    push Game.UI.View.GAME_SCREEN_SCORE_DELIMITER_COLUMN
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW
+    push Game.UI.View.GAME_SCREEN_SCORE_DELIMITER_SYMBOL
+    call Display.Public.PrintCharacter
+
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW_COLOR
+    push Game.UI.View.GAME_SCREEN_SCORE_DELIMITER_COLUMN + 1
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW
+    push Game.UI.View.GAME_SCREEN_SCORE_DELIMITER_SYMBOL
+    call Display.Public.PrintCharacter
+
+    mov bx, [bp + 4]
+
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW_COLOR
+    push Game.UI.View.GAME_SCREEN_PLAYER_1_SCORE_COLUMN
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW
+    push Game.UI.View.GAME_SCREEN_SCORE_DIGITS_AMOUNT
+    push word [bx + Game.TMatchState.Player1Score]
+    call Display.Public.PrintNumber
+
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW_COLOR
+    push Game.UI.View.GAME_SCREEN_PLAYER_2_SCORE_COLUMN
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW
+    push Game.UI.View.GAME_SCREEN_SCORE_DIGITS_AMOUNT
+    push word [bx + Game.TMatchState.Player2Score]
+    call Display.Public.PrintNumber
+
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW_COLOR
+    push Game.UI.View.GAME_SCREEN_PLAYER_1_NAME_COLUMN
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW
+    push word [bx + Game.TMatchState.Player1Name]
+    call Display.Public.PrintString
+
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW_COLOR
+    push Game.UI.View.GAME_SCREEN_PLAYER_2_NAME_COLUMN
+    push Game.UI.View.GAME_SCREEN_SCORE_ROW
+    push word [bx + Game.TMatchState.Player2Name]
+    call Display.Public.PrintString
+
+    push word [bp + 4]
+    call Game.UI.View.Private.SetTurnMarker
+
+    xor ax, ax
+    mov al, [bx + Game.TMatchState.InitialSticksCount]
+    push ax 
     call Display.Public.ConfigureSticksPosition
 
+    push word [bp + 6]
+    call Game.UI.View.Private.GetSticksColor
+
+    push ax
+    xor ax, ax
+    mov al, [bx + Game.TMatchState.CurrentSticksCount]
+    push ax
+    call Display.Public.DrawSticks
+
     pop ax
+    pop bx
     pop bp
-    ret 2
+    ret 4
+
+; Parameters
+;   Stack1 -- Pointer to TMatchState
+;   Stack2 -- Pointer to TMatchConfiguration
+; Returns
+;   None 
+Game.UI.View.Public.UpdateGameScreen:
+    push bp
+    mov bp, sp
+    push bx
+    push ax
+
+    push word [bp + 4]
+    call Game.UI.View.Private.SetTurnMarker
+
+    push word [bp + 6]
+    call Game.UI.View.Private.GetSticksColor
+
+    push ax
+    xor ax, ax
+    mov bx, [bp + 4]
+    mov al, [bx + Game.TMatchState.CurrentSticksCount]
+    push ax
+    call Display.Public.DrawSticks
+
+    pop ax
+    pop bx
+    pop bp
+    ret 4
