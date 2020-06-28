@@ -37,11 +37,11 @@ Game.Public.ConfigureMatch:
     mov [bx + Game.TMatchConfiguration.Complexity], al
 
 .ConfigurationSucceeded:
-    mov ax, Game.TRUE
+    mov ax, TRUE
     jmp @F
 
 .ConfigurationCanceled:
-    mov ax, Game.FALSE
+    mov ax, FALSE
 
 @@:
     pop bx
@@ -91,10 +91,10 @@ Game.Public.ConfirmExit:
     jne .ExitNotConfirmed
 
 .ExitConfirmed:
-    mov ax, Game.TRUE
+    mov ax, TRUE
     jmp @F
 
 .ExitNotConfirmed:
-    mov ax, Game.FALSE
+    mov ax, FALSE
 @@:
     ret

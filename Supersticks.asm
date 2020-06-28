@@ -16,13 +16,16 @@
 
 include 'Game\Game.h.asm'
 
+FALSE = 0
+TRUE = 1
+
 Supersticks:
     call Game.Public.Initialize
 
 .ConfigureMatch:
     push pTMatchConfiguration
     call Game.Public.ConfigureMatch
-    cmp ax, Game.FALSE
+    cmp ax, FALSE
     je .ConfirmExit
 
 .StartMatch:
@@ -32,7 +35,7 @@ Supersticks:
 
 .ConfirmExit:
     call Game.Public.ConfirmExit
-    cmp ax, Game.FALSE
+    cmp ax, FALSE
     je .ConfigureMatch
 
     call Game.Public.Finalize
@@ -42,4 +45,4 @@ include 'Game\Game.public.asm'
 include 'Game\Game.di.asm'
 include 'Game\Game.du.asm'
 
-pTMatchConfiguration rb Game.TMatchConfiguration_SIZE_BYTES
+pTMatchConfiguration rb Game.TMatchConfiguration.SIZE_BYTES
