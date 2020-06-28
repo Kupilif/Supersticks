@@ -126,13 +126,13 @@ Game.UI.View.Private.GetSticksColor:
     push dx
 
     mov bx, [bp + 4]
-    cmp byte [bx + Game.TMatchConfiguration.Mode], Game.MODE_2
+    cmp byte [bx + Game.TMatchConfiguration.bMode], Game.MODE_2
     jne @F
     mov ax, Game.UI.View.GAME_SCREEN_STICKS_COLOR_TWO_PLAYERS
     jmp .ColorSelected
 
 @@:
-    mov dl, [bx + Game.TMatchConfiguration.Complexity]
+    mov dl, [bx + Game.TMatchConfiguration.bComplexity]
     cmp dl, Game.COMPLEXITY_1
     jne @F
     mov ax, Game.UI.View.GAME_SCREEN_STICKS_COLOR_COMPLEXITY_1
@@ -161,7 +161,7 @@ Game.UI.View.Private.SetTurnMarker:
     push bx
 
     mov bx, [bp + 4]
-    cmp byte [bx + Game.TMatchState.IsFirstPlayerTurn], TRUE
+    cmp byte [bx + Game.TMatchState.bIsFirstPlayerTurn], TRUE
     jne .Player2Turn
 
 .Player1Turn:

@@ -18,14 +18,14 @@ Game.COMPLEXITY_COUNT = 3
 Game.GAME_EXIT_CONFIRMATION_OPTION_COUNT = 2
 
 Game.TMatchConfiguration.SIZE_BYTES = 2
-Game.TMatchConfiguration.Mode = 0
-Game.TMatchConfiguration.Complexity = 1
+Game.TMatchConfiguration.bMode = 0
+Game.TMatchConfiguration.bComplexity = 1
 
 Game.TMatchState.SIZE_BYTES = 11
-Game.TMatchState.InitialSticksCount = 0
-Game.TMatchState.CurrentSticksCount = 1
-Game.TMatchState.IsFirstPlayerTurn = 2
-Game.TMatchState.Player1Score = 3
-Game.TMatchState.Player2Score = 5
-Game.TMatchState.Player1Name = 7
-Game.TMatchState.Player2Name = 9
+Game.TMatchState.bInitialSticksCount = 0
+Game.TMatchState.bCurrentSticksCount = 1
+Game.TMatchState.bIsFirstPlayerTurn = 2
+Game.TMatchState.wPlayer1Score = 3
+Game.TMatchState.wPlayer2Score = 5
+Game.TMatchState.pszPlayer1Name = 7
+Game.TMatchState.pszPlayer2Name = 9

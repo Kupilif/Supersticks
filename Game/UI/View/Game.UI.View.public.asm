@@ -196,33 +196,33 @@ Game.UI.View.Public.ShowGameScreen:
     push Game.UI.View.GAME_SCREEN_PLAYER_1_SCORE_COLUMN
     push Game.UI.View.GAME_SCREEN_SCORE_ROW
     push Game.UI.View.GAME_SCREEN_SCORE_DIGITS_AMOUNT
-    push word [bx + Game.TMatchState.Player1Score]
+    push word [bx + Game.TMatchState.wPlayer1Score]
     call Display.Public.PrintNumber
 
     push Game.UI.View.GAME_SCREEN_SCORE_ROW_COLOR
     push Game.UI.View.GAME_SCREEN_PLAYER_2_SCORE_COLUMN
     push Game.UI.View.GAME_SCREEN_SCORE_ROW
     push Game.UI.View.GAME_SCREEN_SCORE_DIGITS_AMOUNT
-    push word [bx + Game.TMatchState.Player2Score]
+    push word [bx + Game.TMatchState.wPlayer2Score]
     call Display.Public.PrintNumber
 
     push Game.UI.View.GAME_SCREEN_SCORE_ROW_COLOR
     push Game.UI.View.GAME_SCREEN_PLAYER_1_NAME_COLUMN
     push Game.UI.View.GAME_SCREEN_SCORE_ROW
-    push word [bx + Game.TMatchState.Player1Name]
+    push word [bx + Game.TMatchState.pszPlayer1Name]
     call Display.Public.PrintString
 
     push Game.UI.View.GAME_SCREEN_SCORE_ROW_COLOR
     push Game.UI.View.GAME_SCREEN_PLAYER_2_NAME_COLUMN
     push Game.UI.View.GAME_SCREEN_SCORE_ROW
-    push word [bx + Game.TMatchState.Player2Name]
+    push word [bx + Game.TMatchState.pszPlayer2Name]
     call Display.Public.PrintString
 
     push word [bp + 4]
     call Game.UI.View.Private.SetTurnMarker
 
     xor ax, ax
-    mov al, [bx + Game.TMatchState.InitialSticksCount]
+    mov al, [bx + Game.TMatchState.bInitialSticksCount]
     push ax 
     call Display.Public.ConfigureSticksPosition
 
@@ -231,7 +231,7 @@ Game.UI.View.Public.ShowGameScreen:
 
     push ax
     xor ax, ax
-    mov al, [bx + Game.TMatchState.CurrentSticksCount]
+    mov al, [bx + Game.TMatchState.bCurrentSticksCount]
     push ax
     call Display.Public.DrawSticks
 
@@ -260,7 +260,7 @@ Game.UI.View.Public.UpdateGameScreen:
     push ax
     xor ax, ax
     mov bx, [bp + 4]
-    mov al, [bx + Game.TMatchState.CurrentSticksCount]
+    mov al, [bx + Game.TMatchState.bCurrentSticksCount]
     push ax
     call Display.Public.DrawSticks
 
