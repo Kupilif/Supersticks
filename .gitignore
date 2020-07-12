@@ -1,2 +1,3 @@
-bin/
+bin/*.zip
+bin/*.com
 config.bat

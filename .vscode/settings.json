@@ -1,4 +1,10 @@
 {
+    "files.autoSave": "onFocusChange",
     "editor.tabSize": 4,
-    "files.autoSave": "onFocusChange"
+    "[html]": {
+        "editor.tabSize": 2
+    },
+    "[javascript]": {
+        "editor.tabSize": 2
+    }
 }

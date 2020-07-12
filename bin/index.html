@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Supersticks</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-dos@6.22.59/dist/js-dos.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-dos@6.22.59/dist/dosbox-emterp.js"></script>
+    <style>
+      html, body, .dosbox-container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+      .dosbox {
+        width: 100%!important;
+        height: 100%!important;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="dosbox" class="dosbox"></canvas>
+
+    <script type="text/javascript">
+      var dosbox = document.getElementById("dosbox");
+      Dos(dosbox).ready((fs, main) => {
+        fs.extract("Sticks.zip").then(() => {
+            main(["-c", "Sticks.COM"])
+        });
+      });
+    </script>
+  </body>
+</html>
