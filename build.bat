@@ -3,6 +3,8 @@ SETLOCAL
 
 CALL config.bat
 
+cd .\Supersticks
+
 IF NOT EXIST .\bin\ MD bin
 %_fasm% .\Supersticks.asm .\bin\Sticks.com
 IF NOT %ERRORLEVEL% EQU 0 GOTO end
