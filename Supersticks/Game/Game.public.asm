@@ -53,6 +53,7 @@ Game.Public.ConfigureMatch:
 Game.Public.StartMatch:
     push bp
     mov bp, sp
+    push bx
 
     mov byte [Game.pTMatchState + Game.TMatchState.bInitialSticksCount], 5
     mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 5
@@ -62,39 +63,25 @@ Game.Public.StartMatch:
     mov word [Game.pTMatchState + Game.TMatchState.pszPlayer1Name], Game.szPlayer1Name
     mov word [Game.pTMatchState + Game.TMatchState.pszPlayer2Name], Game.szPlayer2Name
 
+    push Game.Private.GetUserMove
+
+    mov bx, [bp + 4]
+    cmp byte [bx + Game.TMatchConfiguration.bMode], Game.MODE_1
+    jne .UserVsUser
+
+.ComputerVsUser:
+    push Game.Private.GetComputerMove
+    jmp .Match
+
+.UserVsUser:
+    push Game.Private.GetUserMove
+
+.Match:
     push word [bp + 4]
     push Game.pTMatchState
-    call Game.UI.View.Public.ShowGameScreen
-    call Keyboard.Public.ReadKey
+    call Game.Private.Play
 
-    mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 4
-    not byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn]
-    push word [bp + 4]
-    push Game.pTMatchState
-    call Game.UI.View.Public.UpdateGameScreen
-    call Keyboard.Public.ReadKey
-
-    mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 3
-    not byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn]
-    push word [bp + 4]
-    push Game.pTMatchState
-    call Game.UI.View.Public.UpdateGameScreen
-    call Keyboard.Public.ReadKey
-
-    mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 2
-    not byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn]
-    push word [bp + 4]
-    push Game.pTMatchState
-    call Game.UI.View.Public.UpdateGameScreen
-    call Keyboard.Public.ReadKey
-
-    mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 1
-    not byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn]
-    push word [bp + 4]
-    push Game.pTMatchState
-    call Game.UI.View.Public.UpdateGameScreen
-    call Keyboard.Public.ReadKey
-
+    pop bx
     pop bp
     ret 2
 
