@@ -17,7 +17,7 @@
 include 'Game\Game.h.asm'
 
 FALSE = 0
-TRUE = 1
+TRUE = 255
 
 Supersticks:
     call Game.Public.Initialize

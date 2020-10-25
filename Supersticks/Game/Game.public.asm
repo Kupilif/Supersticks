@@ -68,28 +68,28 @@ Game.Public.StartMatch:
     call Keyboard.Public.ReadKey
 
     mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 4
-    mov byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn], FALSE
+    not byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn]
     push word [bp + 4]
     push Game.pTMatchState
     call Game.UI.View.Public.UpdateGameScreen
     call Keyboard.Public.ReadKey
 
     mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 3
-    mov byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn], TRUE
+    not byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn]
     push word [bp + 4]
     push Game.pTMatchState
     call Game.UI.View.Public.UpdateGameScreen
     call Keyboard.Public.ReadKey
 
     mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 2
-    mov byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn], FALSE
+    not byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn]
     push word [bp + 4]
     push Game.pTMatchState
     call Game.UI.View.Public.UpdateGameScreen
     call Keyboard.Public.ReadKey
 
     mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 1
-    mov byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn], TRUE
+    not byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn]
     push word [bp + 4]
     push Game.pTMatchState
     call Game.UI.View.Public.UpdateGameScreen
