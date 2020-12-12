@@ -49,7 +49,9 @@ Game.Public.ConfigureMatch:
 
 ; Parameters
 ;   Stack1 -- Pointer to initialized TMatchConfiguration
-Game.Public.StartMatch:
+; Returns
+;   None
+Game.Public.PlayMatch:
     push bp
     mov bp, sp
     push ax
@@ -74,27 +76,27 @@ Game.Public.StartMatch:
 .UserVsUser:
     mov cx, Game.Private.GetUserMove
 
-.MatchLoopStart:
-    mov byte [Game.pTMatchState + Game.TMatchState.bInitialSticksCount], 5
-    mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 5
+    .MatchLoopStart:
+        mov byte [Game.pTMatchState + Game.TMatchState.bInitialSticksCount], 5
+        mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 5
 
-    push cx
-    push Game.Private.GetUserMove
-    push word [bp + 4]
-    push Game.pTMatchState
-    call Game.Private.Play
+        push cx
+        push Game.Private.GetUserMove
+        push word [bp + 4]
+        push Game.pTMatchState
+        call Game.Private.PlayRound
 
-    cmp ax, FALSE
-    je .MatchLoopEnd
+        cmp ax, FALSE
+        je .MatchLoopEnd
 
-    cmp byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerWin], TRUE
-    jne @F
-    inc word [Game.pTMatchState + Game.TMatchState.wPlayer1Score]
-    jmp .MatchLoopStart
-@@:
-    inc word [Game.pTMatchState + Game.TMatchState.wPlayer2Score]
-    jmp .MatchLoopStart
-.MatchLoopEnd:
+        cmp byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerWin], TRUE
+        jne @F
+        inc word [Game.pTMatchState + Game.TMatchState.wPlayer1Score]
+        jmp .MatchLoopStart
+    @@:
+        inc word [Game.pTMatchState + Game.TMatchState.wPlayer2Score]
+        jmp .MatchLoopStart
+    .MatchLoopEnd:
 
     pop cx
     pop bx

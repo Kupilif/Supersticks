@@ -1,11 +1,11 @@
 ; Parameters
 ;   Stack1 -- Pointer to TMatchState
 ;   Stack2 -- Pointer to TMatchConfiguration
-;   Stack3 -- Pointer to function with player's 1 move
-;   Stack4 -- Pointer to function with player's 2 move
+;   Stack3 -- Pointer to function which gets 1st player move
+;   Stack4 -- Pointer to function which gets 2nd player move
 ; Returns
 ;   AX -- TRUE if match should be continued, FALSE otherwise
-Game.Private.Play:
+Game.Private.PlayRound:
     push bp
     mov bp, sp
     push bx

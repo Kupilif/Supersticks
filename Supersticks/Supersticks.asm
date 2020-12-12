@@ -28,9 +28,9 @@ Supersticks:
     cmp ax, FALSE
     je .ConfirmExit
 
-.StartMatch:
+.PlayMatch:
     push pTMatchConfiguration
-    call Game.Public.StartMatch
+    call Game.Public.PlayMatch
     jmp .ConfigureMatch
 
 .ConfirmExit:
