@@ -24,25 +24,26 @@ Game.Public.ConfigureMatch:
 
 .SelectGameMode:
     call Game.UI.Public.SelectGameMode
+
     cmp ax, FALSE
-    je .ConfigurationCanceled
+    je .ConfigurationCancelled
+
     mov [bx + Game.TMatchConfiguration.bMode], al
     cmp ax, Game.MODE_2
     je .ConfigurationSucceeded
 
 .SelectGameComplexity:
     call Game.UI.Public.SelectGameComplexity
+
     cmp ax, FALSE
     je .SelectGameMode
+
     mov [bx + Game.TMatchConfiguration.bComplexity], al
 
 .ConfigurationSucceeded:
     mov ax, TRUE
-    jmp @F
 
-.ConfigurationCanceled:
-
-@@:
+.ConfigurationCancelled:
     pop bx
     pop bp
     ret 2
