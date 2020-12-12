@@ -91,7 +91,7 @@ Game.UI.View.Private.SetGameExitConfirmationScreenSelector:
     push Game.UI.View.SELECTOR_COLOR
     push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_1_SELECTOR_COLUMN
     push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_1_ROW
-    cmp word [bp + 4], Game.GAME_EXIT_CONFIRMATION_OPTION_1
+    cmp word [bp + 4], Game.UI.GAME_EXIT_CONFIRMATION_OPTION_1
     je .SelectedOption1
     push Game.UI.View.SYMBOL_CLEAR
     jmp @F
@@ -103,7 +103,7 @@ Game.UI.View.Private.SetGameExitConfirmationScreenSelector:
     push Game.UI.View.SELECTOR_COLOR
     push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_2_SELECTOR_COLUMN
     push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_2_ROW
-    cmp word [bp + 4], Game.GAME_EXIT_CONFIRMATION_OPTION_2
+    cmp word [bp + 4], Game.UI.GAME_EXIT_CONFIRMATION_OPTION_2
     je .SelectedOption2
     push Game.UI.View.SYMBOL_CLEAR
     jmp @F

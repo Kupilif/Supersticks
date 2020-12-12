@@ -33,3 +33,47 @@ Game.UI.Controller.Public.GetUserInputForSelectionFromList:
     .InputLoopEnd:
 
     ret
+
+; Parameters
+;   None
+; Returns
+;   AX -- User move, FALSE if ESC was pressed
+Game.UI.Controller.Public.GetUserMove:
+    .InputLoopStart:
+        call Keyboard.Public.ReadKey
+
+        cmp ax, Keyboard.VK_ESCAPE
+        jne @F
+        mov ax, FALSE
+        jmp .InputLoopEnd
+
+    @@:
+        cmp ax, Keyboard.0
+        jl .InputLoopStart
+        cmp ax, Keyboard.9
+        jg .InputLoopStart
+
+        sub ax, Keyboard.0
+
+    .InputLoopEnd:
+
+    ret
+
+; Parameters
+;   None
+; Returns
+;   AX -- FALSE if ESC was pressed, TRUE otherwise
+Game.UI.Controller.Public.WaitForAnyKey:
+    call Keyboard.Public.ReadKey
+
+    cmp ax, Keyboard.VK_ESCAPE
+    je @F
+
+    mov ax, TRUE
+    jmp .End
+
+@@:
+    mov ax, FALSE
+
+.End:
+    ret

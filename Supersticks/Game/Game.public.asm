@@ -24,7 +24,7 @@ Game.Public.ConfigureMatch:
 
 .SelectGameMode:
     call Game.UI.Public.SelectGameMode
-    cmp ax, Game.CANCEL_ACTION
+    cmp ax, FALSE
     je .ConfigurationCanceled
     mov [bx + Game.TMatchConfiguration.bMode], al
     cmp ax, Game.MODE_2
@@ -32,7 +32,7 @@ Game.Public.ConfigureMatch:
 
 .SelectGameComplexity:
     call Game.UI.Public.SelectGameComplexity
-    cmp ax, Game.CANCEL_ACTION
+    cmp ax, FALSE
     je .SelectGameMode
     mov [bx + Game.TMatchConfiguration.bComplexity], al
 
@@ -41,7 +41,6 @@ Game.Public.ConfigureMatch:
     jmp @F
 
 .ConfigurationCanceled:
-    mov ax, FALSE
 
 @@:
     pop bx
@@ -53,13 +52,14 @@ Game.Public.ConfigureMatch:
 Game.Public.StartMatch:
     push bp
     mov bp, sp
+    push ax
     push bx
+    push cx
 
-    mov byte [Game.pTMatchState + Game.TMatchState.bInitialSticksCount], 5
-    mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 5
     mov byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn], TRUE
-    mov word [Game.pTMatchState + Game.TMatchState.wPlayer1Score], 12
-    mov word [Game.pTMatchState + Game.TMatchState.wPlayer2Score], 27
+
+    mov word [Game.pTMatchState + Game.TMatchState.wPlayer1Score], 0
+    mov word [Game.pTMatchState + Game.TMatchState.wPlayer2Score], 0
     mov word [Game.pTMatchState + Game.TMatchState.pszPlayer1Name], Game.szPlayer1Name
     mov word [Game.pTMatchState + Game.TMatchState.pszPlayer2Name], Game.szPlayer2Name
 
@@ -68,19 +68,37 @@ Game.Public.StartMatch:
     jne .UserVsUser
 
 .ComputerVsUser:
-    push Game.Private.GetComputerMove
-    jmp .Match
+    mov cx, Game.Private.GetComputerMove
+    jmp .MatchLoopStart
 
 .UserVsUser:
-    push Game.Private.GetUserMove
+    mov cx, Game.Private.GetUserMove
 
-.Match:
+.MatchLoopStart:
+    mov byte [Game.pTMatchState + Game.TMatchState.bInitialSticksCount], 5
+    mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 5
+
+    push cx
     push Game.Private.GetUserMove
     push word [bp + 4]
     push Game.pTMatchState
     call Game.Private.Play
 
+    cmp ax, FALSE
+    je .MatchLoopEnd
+
+    cmp byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerWin], TRUE
+    jne @F
+    inc word [Game.pTMatchState + Game.TMatchState.wPlayer1Score]
+    jmp .MatchLoopStart
+@@:
+    inc word [Game.pTMatchState + Game.TMatchState.wPlayer2Score]
+    jmp .MatchLoopStart
+.MatchLoopEnd:
+
+    pop cx
     pop bx
+    pop ax
     pop bp
     ret 2
 
@@ -90,14 +108,4 @@ Game.Public.StartMatch:
 ;   AX -- TRUE if game exit confirmed. otherwise FALSE
 Game.Public.ConfirmExit:
     call Game.UI.Public.ConfirmGameExit
-    cmp ax, Game.GAME_EXIT_CONFIRMATION_OPTION_1
-    jne .ExitNotConfirmed
-
-.ExitConfirmed:
-    mov ax, TRUE
-    jmp @F
-
-.ExitNotConfirmed:
-    mov ax, FALSE
-@@:
     ret

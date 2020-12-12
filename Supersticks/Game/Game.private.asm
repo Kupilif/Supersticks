@@ -4,7 +4,7 @@
 ;   Stack3 -- Pointer to function with player's 1 move
 ;   Stack4 -- Pointer to function with player's 2 move
 ; Returns
-;   AH -- TRUE if player 1 wins, otherwise FALSE
+;   AX -- TRUE if match should be continued, FALSE otherwise
 Game.Private.Play:
     push bp
     mov bp, sp
@@ -30,7 +30,10 @@ Game.Private.Play:
     call word [bp + 10]
 
 .PlayerMoveEnd:
-    sub [bx + Game.TMatchState.bCurrentSticksCount], ah
+    cmp ax, FALSE
+    je .End
+
+    sub [bx + Game.TMatchState.bCurrentSticksCount], al
     not byte [bx + Game.TMatchState.bIsFirstPlayerTurn]
 
     push bx
@@ -45,8 +48,11 @@ Game.Private.Play:
     jmp .PlayerMove
 
 .GameOver:
-    mov ah, [bx + Game.TMatchState.bIsFirstPlayerTurn]
+    mov al, [bx + Game.TMatchState.bIsFirstPlayerTurn]
+    mov [bx + Game.TMatchState.bIsFirstPlayerWin], al
+    mov ax, TRUE
 
+.End:
     pop bx
     pop bp
     ret 8
@@ -55,18 +61,28 @@ Game.Private.Play:
 ;   Stack1 -- Pointer to TMatchState
 ;   Stack2 -- Pointer to TMatchConfiguration
 ; Returns
-;   AH -- Sticks count
+;   AX -- Sticks count, FALSE if match was cancelled
 Game.Private.GetComputerMove:
-    call Keyboard.Public.ReadKey
-    mov ah, 2
+    push word [bp + 6]
+    push word [bp + 4]
+    call Game.UI.Public.WaitForUser
+
+    cmp ax, FALSE
+    je @F
+
+    mov ax, 1
+
+@@:
     ret 4
 
 ; Parameters
 ;   Stack1 -- Pointer to TMatchState
 ;   Stack2 -- Pointer to TMatchConfiguration
 ; Returns
-;   AH -- Sticks count
+;   AX -- Sticks count, FALSE if match was cancelled
 Game.Private.GetUserMove:
-    call Keyboard.Public.ReadKey
-    mov ah, 1
+    push word [bp + 6]
+    push word [bp + 4]
+    call Game.UI.Public.GetUserMove
+
     ret 4

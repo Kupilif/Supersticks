@@ -4,7 +4,7 @@
 ;   Stack3 -- Pointer to function which shows selection screen with specified option selected
 ;   Stack4 -- Pointer to function which updates selection screen with specified option selected
 ; Returns
-;   AX -- Selected option
+;   AX -- Selected option or FALSE if ESC was pressed
 ; Remarks
 ;   Each select option should be represented as byte
 Game.UI.Private.SelectFromList:
@@ -37,7 +37,7 @@ Game.UI.Private.SelectFromList:
     @@:
         cmp ax, Game.UI.Controller.CANCEL
         jne @F
-        mov ax, Game.CANCEL_ACTION
+        mov ax, FALSE
         jmp .SelectLoopEnd
 
     @@:
@@ -67,6 +67,42 @@ Game.UI.Private.SelectFromList:
     pop bx
     pop bp
     ret 8
+
+; Parameters
+;   Stack1 -- Pointer to TMatchState
+;   Stack2 -- Pointer to TMatchConfiguration
+;   Stack3 -- Pointer to function which reads user input
+; Returns
+;   AX -- User input, FALSE if ESC was pressed
+Game.UI.Private.GetUserInput:
+    push bp
+    mov bp, sp
+
+    .InputLoopStart:
+        call word [bp + 8]
+
+        cmp ax, FALSE
+        jne .InputLoopEnd
+
+        call Game.UI.Public.ConfirmGameExit
+
+        cmp ax, TRUE
+        je .ExitGame
+
+    .ContinueGame:
+        push word [bp + 6]
+        push word [bp + 4]
+        call Game.UI.Public.ShowMatch
+        jmp .InputLoopStart
+
+    .ExitGame:
+        mov ax, FALSE
+        jmp .InputLoopEnd
+
+    .InputLoopEnd:
+
+    pop bp
+    ret 6
 
 ; Parameters
 ;   CX -- Current value

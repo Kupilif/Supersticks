@@ -37,11 +37,11 @@ Game.UI.Public.SelectGameComplexity:
 ; Parameter
 ;   None
 ; Returns
-;   AX -- Selected option
+;   AX -- TRUE when game exit was confirmed, FALSE otherwise
 Game.UI.Public.ConfirmGameExit:
     push Game.UI.View.Public.UpdateGameExitConfirmationScreen
     push Game.UI.View.Public.ShowGameExitConfirmationScreen
-    push Game.GAME_EXIT_CONFIRMATION_OPTION_COUNT
+    push Game.UI.GAME_EXIT_CONFIRMATION_OPTION_COUNT
     push Game.UI.abGameExitConfirmationOptions
     call Game.UI.Private.SelectFromList
     ret
@@ -74,6 +74,40 @@ Game.UI.Public.UpdateMatch:
     push word [bp + 6]
     push word [bp + 4]
     call Game.UI.View.Public.UpdateGameScreen
+
+    pop bp
+    ret 4
+
+; Parameters
+;   Stack1 -- Pointer to TMatchState
+;   Stack2 -- Pointer to TMatchConfiguration
+; Returns
+;   AX -- User move, FALSE if match was cancelled
+Game.UI.Public.GetUserMove:
+    push bp
+    mov bp, sp
+
+    push Game.UI.Controller.Public.GetUserMove
+    push word [bp + 6]
+    push word [bp + 4]
+    call Game.UI.Private.GetUserInput
+
+    pop bp
+    ret 4
+
+; Parameters
+;   Stack1 -- Pointer to TMatchState
+;   Stack2 -- Pointer to TMatchConfiguration
+; Returns
+;   AX -- FALSE if ESC was pressed, TRUE otherwise
+Game.UI.Public.WaitForUser:
+    push bp
+    mov bp, sp
+
+    push Game.UI.Controller.Public.WaitForAnyKey
+    push word [bp + 6]
+    push word [bp + 4]
+    call Game.UI.Private.GetUserInput
 
     pop bp
     ret 4
