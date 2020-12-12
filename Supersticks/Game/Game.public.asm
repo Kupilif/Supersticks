@@ -63,8 +63,6 @@ Game.Public.StartMatch:
     mov word [Game.pTMatchState + Game.TMatchState.pszPlayer1Name], Game.szPlayer1Name
     mov word [Game.pTMatchState + Game.TMatchState.pszPlayer2Name], Game.szPlayer2Name
 
-    push Game.Private.GetUserMove
-
     mov bx, [bp + 4]
     cmp byte [bx + Game.TMatchConfiguration.bMode], Game.MODE_1
     jne .UserVsUser
@@ -77,6 +75,7 @@ Game.Public.StartMatch:
     push Game.Private.GetUserMove
 
 .Match:
+    push Game.Private.GetUserMove
     push word [bp + 4]
     push Game.pTMatchState
     call Game.Private.Play
