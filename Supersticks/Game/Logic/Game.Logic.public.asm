@@ -17,7 +17,7 @@ Game.Logic.Public.IsGameOver:
     mov ax, FALSE
     mov bx, [bp + 4]
     cmp byte [bx + Game.TMatchState.bCurrentSticksCount], 0
-    jne .End
+    jg .End
     mov ax, TRUE
 
 .End:
