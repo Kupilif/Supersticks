@@ -105,7 +105,7 @@ Game.Public.StartMatch:
 ; Parameters
 ;   None
 ; Returns
-;   AX -- TRUE if game exit confirmed. otherwise FALSE
-Game.Public.ConfirmExit:
-    call Game.UI.Public.ConfirmGameExit
+;   AX -- TRUE when game should be continued, FALSE otherwise
+Game.Public.ShouldContinueGame:
+    call Game.UI.Public.ShouldContinueGame
     ret

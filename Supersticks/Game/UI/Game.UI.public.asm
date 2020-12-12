@@ -37,8 +37,8 @@ Game.UI.Public.SelectGameComplexity:
 ; Parameter
 ;   None
 ; Returns
-;   AX -- TRUE when game exit was confirmed, FALSE otherwise
-Game.UI.Public.ConfirmGameExit:
+;   AX -- TRUE when game should be continued, FALSE otherwise
+Game.UI.Public.ShouldContinueGame:
     push Game.UI.View.Public.UpdateGameExitConfirmationScreen
     push Game.UI.View.Public.ShowGameExitConfirmationScreen
     push Game.UI.GAME_EXIT_CONFIRMATION_OPTION_COUNT

@@ -84,20 +84,16 @@ Game.UI.Private.GetUserInput:
         cmp ax, FALSE
         jne .InputLoopEnd
 
-        call Game.UI.Public.ConfirmGameExit
+        call Game.UI.Public.ShouldContinueGame
 
-        cmp ax, TRUE
-        je .ExitGame
+        cmp ax, FALSE
+        je .InputLoopEnd
 
     .ContinueGame:
         push word [bp + 6]
         push word [bp + 4]
         call Game.UI.Public.ShowMatch
         jmp .InputLoopStart
-
-    .ExitGame:
-        mov ax, FALSE
-        jmp .InputLoopEnd
 
     .InputLoopEnd:
 

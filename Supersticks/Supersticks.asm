@@ -34,8 +34,8 @@ Supersticks:
     jmp .ConfigureMatch
 
 .ConfirmExit:
-    call Game.Public.ConfirmExit
-    cmp ax, FALSE
+    call Game.Public.ShouldContinueGame
+    cmp ax, TRUE
     je .ConfigureMatch
 
     call Game.Public.Finalize
