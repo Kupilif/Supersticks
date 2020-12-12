@@ -14,7 +14,7 @@ Game.Private.Play:
 
     push word [bp + 6]
     push bx
-    call Game.UI.View.Public.ShowGameScreen
+    call Game.UI.Public.ShowMatch
 
 .PlayerMove:
     push word [bp + 6]
@@ -41,7 +41,7 @@ Game.Private.Play:
 
     push word [bp + 6]
     push bx
-    call Game.UI.View.Public.UpdateGameScreen
+    call Game.UI.Public.UpdateMatch
     jmp .PlayerMove
 
 .GameOver:

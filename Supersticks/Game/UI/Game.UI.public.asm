@@ -45,3 +45,35 @@ Game.UI.Public.ConfirmGameExit:
     push Game.UI.abGameExitConfirmationOptions
     call Game.UI.Private.SelectFromList
     ret
+
+; Parameters
+;   Stack1 -- Pointer to TMatchState
+;   Stack2 -- Pointer to TMatchConfiguration
+; Returns
+;   None 
+Game.UI.Public.ShowMatch:
+    push bp
+    mov bp, sp
+
+    push word [bp + 6]
+    push word [bp + 4]
+    call Game.UI.View.Public.ShowGameScreen
+
+    pop bp
+    ret 4
+
+; Parameters
+;   Stack1 -- Pointer to TMatchState
+;   Stack2 -- Pointer to TMatchConfiguration
+; Returns
+;   None 
+Game.UI.Public.UpdateMatch:
+    push bp
+    mov bp, sp
+
+    push word [bp + 6]
+    push word [bp + 4]
+    call Game.UI.View.Public.UpdateGameScreen
+
+    pop bp
+    ret 4
