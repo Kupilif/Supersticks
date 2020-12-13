@@ -1,0 +1,1 @@
+![Supersticks demo](https://raw.githubusercontent.com/Kupilif/Supersticks/master/Supersticks.GIF)
