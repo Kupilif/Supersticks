@@ -70,14 +70,14 @@ Game.Public.PlayMatch:
 
 .ComputerVsUser:
     mov cx, Game.Private.GetComputerMove
-    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer1Name], Game.szSingleplayerPlayer1Name
-    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer2Name], Game.szSingleplayerPlayer2Name
+    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer1Name], Game.szMode1Player1Name
+    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer2Name], Game.szMode1Player2Name
     jmp .MatchLoopStart
 
 .UserVsUser:
     mov cx, Game.Private.GetUserMove
-    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer1Name], Game.szMultiplayerPlayer1Name
-    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer2Name], Game.szMultiplayerPlayer2Name
+    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer1Name], Game.szMode2Player1Name
+    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer2Name], Game.szMode2Player2Name
 
     .MatchLoopStart:
         mov byte [Game.pTMatchState + Game.TMatchState.bInitialSticksCount], 5

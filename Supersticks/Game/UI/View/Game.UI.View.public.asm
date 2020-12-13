@@ -268,3 +268,27 @@ Game.UI.View.Public.UpdateGameScreen:
     pop bx
     pop bp
     ret 4
+
+; Parameters
+;   Stack1 -- Player name
+;   Stack2 -- Color
+; Returns
+;   None 
+Game.UI.View.Public.ShowRoundResultScreen:
+    push bp
+    mov bp, sp
+
+    call Display.Public.Clear
+
+    push word [bp + 6]
+    push Game.UI.View.ROUND_RESULT_SCREEN_WINNER_COLUMN
+    push Game.UI.View.ROUND_RESULT_SCREEN_WINNER_ROW
+    push word [bp + 4]
+    call Display.Public.PrintStringAtPosition
+
+    push word [bp + 6]
+    push Game.UI.View.szRoundWinner
+    call Display.Public.PrintString
+
+    pop bp
+    ret 4

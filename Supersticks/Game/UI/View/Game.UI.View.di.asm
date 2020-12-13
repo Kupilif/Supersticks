@@ -9,3 +9,4 @@ Game.UI.View.szGameComplexity3 db 'Hard', 0
 Game.UI.View.szGameExitConfirmation db 'Leave game?', 0
 Game.UI.View.szGameExitConfirmationOption1 db 'Yes', 0
 Game.UI.View.szGameExitConfirmationOption2 db 'No', 0
+Game.UI.View.szRoundWinner db ' wins!', 0

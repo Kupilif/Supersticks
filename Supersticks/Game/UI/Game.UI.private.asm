@@ -73,8 +73,8 @@ Game.UI.Private.SelectFromList:
 ;   Stack2 -- Pointer to TMatchConfiguration
 ;   Stack3 -- Pointer to function which reads user input
 ; Returns
-;   AX -- User input, FALSE if ESC was pressed
-Game.UI.Private.GetUserInput:
+;   AX -- User action, FALSE if match was cancelled
+Game.UI.Private.GetGameActionFromUser:
     push bp
     mov bp, sp
 

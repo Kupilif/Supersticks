@@ -82,6 +82,51 @@ Game.UI.Public.UpdateMatch:
 ;   Stack1 -- Pointer to TMatchState
 ;   Stack2 -- Pointer to TMatchConfiguration
 ; Returns
+;   None 
+Game.UI.Public.ShowRoundResult:
+    push bp
+    mov bp, sp
+    sub sp, 4
+    push bx
+    
+.SelectColorScheme:
+    mov bx, [bp + 6]
+
+    cmp byte [bx + Game.TMatchConfiguration.bMode], Game.MODE_1
+    jne @F
+
+    mov word [bp - 2], Game.UI.View.ROUND_RESULT_SCREEN_MODE_1_PLAYER_1_WINNER_COLOR
+    mov word [bp - 4], Game.UI.View.ROUND_RESULT_SCREEN_MODE_1_PLAYER_2_WINNER_COLOR
+    jmp .ConfigureScreen
+@@:
+    mov word [bp - 2], Game.UI.View.ROUND_RESULT_SCREEN_MODE_2_PLAYER_1_WINNER_COLOR
+    mov word [bp - 4], Game.UI.View.ROUND_RESULT_SCREEN_MODE_2_PLAYER_2_WINNER_COLOR
+
+.ConfigureScreen:
+    mov bx, [bp + 4]
+
+    cmp byte [bx + Game.TMatchState.bIsFirstPlayerWin], TRUE
+    jne @F
+
+    push word [bp - 2]
+    push word [bx + Game.TMatchState.pszPlayer1Name]
+    jmp .ShowScreen
+@@:
+    push word [bp - 4]
+    push word [bx + Game.TMatchState.pszPlayer2Name]
+
+.ShowScreen:
+    call Game.UI.View.Public.ShowRoundResultScreen
+
+    pop bx
+    mov sp, bp
+    pop bp
+    ret 4
+
+; Parameters
+;   Stack1 -- Pointer to TMatchState
+;   Stack2 -- Pointer to TMatchConfiguration
+; Returns
 ;   AX -- User move, FALSE if match was cancelled
 Game.UI.Public.GetUserMove:
     push bp
@@ -90,7 +135,7 @@ Game.UI.Public.GetUserMove:
     push Game.UI.Controller.Public.GetUserMove
     push word [bp + 6]
     push word [bp + 4]
-    call Game.UI.Private.GetUserInput
+    call Game.UI.Private.GetGameActionFromUser
 
     pop bp
     ret 4
@@ -99,15 +144,27 @@ Game.UI.Public.GetUserMove:
 ;   Stack1 -- Pointer to TMatchState
 ;   Stack2 -- Pointer to TMatchConfiguration
 ; Returns
-;   AX -- FALSE if ESC was pressed, TRUE otherwise
-Game.UI.Public.WaitForUser:
+;   AX -- FALSE if match was cancelled, TRUE otherwise
+Game.UI.Public.WaitForComputerMove:
     push bp
     mov bp, sp
 
     push Game.UI.Controller.Public.WaitForAnyKey
     push word [bp + 6]
     push word [bp + 4]
-    call Game.UI.Private.GetUserInput
+    call Game.UI.Private.GetGameActionFromUser
 
     pop bp
     ret 4
+
+; Parameters
+;   None
+; Returns
+;   None
+Game.UI.Public.WaitForUser:
+    push ax
+
+    call Game.UI.Controller.Public.WaitForAnyKey
+
+    pop ax
+    ret

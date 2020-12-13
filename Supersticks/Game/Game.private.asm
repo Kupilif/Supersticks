@@ -50,6 +50,13 @@ Game.Private.PlayRound:
 .GameOver:
     mov al, [bx + Game.TMatchState.bIsFirstPlayerTurn]
     mov [bx + Game.TMatchState.bIsFirstPlayerWin], al
+
+    push word [bp + 6]
+    push bx
+    call Game.UI.Public.ShowRoundResult
+
+    call Game.UI.Public.WaitForUser
+
     mov ax, TRUE
 
 .End:
@@ -65,7 +72,7 @@ Game.Private.PlayRound:
 Game.Private.GetComputerMove:
     push word [bp + 6]
     push word [bp + 4]
-    call Game.UI.Public.WaitForUser
+    call Game.UI.Public.WaitForComputerMove
 
     cmp ax, FALSE
     je @F

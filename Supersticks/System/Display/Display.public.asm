@@ -199,25 +199,19 @@ Display.Public.PrintCharacter:
 
 ; Parameters
 ;   Stack1 -- Address of null-terminated string
-;   Stack2 -- Row
-;   Stack3 -- Column
-;   Stack4 -- Color
+;   Stack2 -- Color
 ; Returns
 ;   None
-Display.Public.PrintStringAtPosition:
+Display.Public.PrintString:
     push bp
     mov bp, sp
     push ax
     push bx
     push si
 
-    push word [bp + 8]
-    push word [bp + 6]
-    call Display.Private.SetCursorPosition
-
     cld
     mov si, [bp + 4]
-    mov bl, [bp + 10]
+    mov bl, [bp + 6]
     .PrintLoopStart:
         lodsb
 
@@ -231,6 +225,28 @@ Display.Public.PrintStringAtPosition:
     pop si
     pop bx
     pop ax
+    pop bp
+    ret 4
+
+; Parameters
+;   Stack1 -- Address of null-terminated string
+;   Stack2 -- Row
+;   Stack3 -- Column
+;   Stack4 -- Color
+; Returns
+;   None
+Display.Public.PrintStringAtPosition:
+    push bp
+    mov bp, sp
+
+    push word [bp + 8]
+    push word [bp + 6]
+    call Display.Private.SetCursorPosition
+
+    push word [bp + 10]
+    push word [bp + 4]
+    call Display.Public.PrintString
+
     pop bp
     ret 8
 
