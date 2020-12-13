@@ -7,6 +7,7 @@
 Game.Logic.Private.HowMuchSticksTakeToWin:
     push bp
     mov bp, sp
+    push bx
 
     mov ax, [bp + 4]
 
@@ -30,5 +31,6 @@ Game.Logic.Private.HowMuchSticksTakeToWin:
     xor ax, ax
 
 .End:
+    pop bx
     pop bp
     ret 2

@@ -82,7 +82,6 @@ Game.Logic.GetSticksCount:
 Game.Logic.GetComputerMove:
     push bp
     mov bp, sp
-    push ax
 
     push Game.Logic.MAX_PROBABILITY
     call Random.Public.Get
@@ -105,11 +104,13 @@ Game.Logic.GetComputerMove:
     mov ax, [bp + 4]
 @@:    
     add ax, 1 - Game.Logic.MIN_STICKS_COUNT_PER_MOVE
+
+    push ax
     call Random.Public.Get
+
     add ax, Game.Logic.MIN_STICKS_COUNT_PER_MOVE
 
 .End:
-    pop ax
     pop bp
     ret 2
 
