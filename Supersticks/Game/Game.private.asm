@@ -85,7 +85,7 @@ Game.Private.GetComputerMove:
     mov bx, [bp + 4]
     movzx ax, [bx + Game.TMatchState.bCurrentSticksCount]
     push ax
-    call Game.Logic.GetComputerMove
+    call Game.Logic.Public.GetComputerMove
 
 @@:
     pop bx
@@ -113,7 +113,7 @@ Game.Private.GetUserMove:
         mov cx, ax
         push word [bp + 4]
         push ax
-        call Game.Logic.IsValidMove
+        call Game.Logic.Public.IsValidMove
 
         cmp ax, FALSE
         je .InputLoopStart

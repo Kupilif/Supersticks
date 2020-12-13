@@ -50,7 +50,7 @@ Game.Logic.Public.Initialize:
 ;   None
 ; Returns
 ;   AX -- TRUE if player 1 starts round, FALSE otherwise
-Game.Logic.DoesPlayer1StartRound:
+Game.Logic.Public.DoesPlayer1StartRound:
     push Game.Logic.MAX_PROBABILITY
     call Random.Public.Get
 
@@ -69,7 +69,7 @@ Game.Logic.DoesPlayer1StartRound:
 ;   None
 ; Returns
 ;   AX -- Sticks count
-Game.Logic.GetSticksCount:
+Game.Logic.Public.GetSticksCount:
     push Game.Logic.MAX_STICKS_COUNT - Game.Logic.MIN_STICKS_COUNT + 1
     call Random.Public.Get
     add ax, Game.Logic.MIN_STICKS_COUNT
@@ -79,7 +79,7 @@ Game.Logic.GetSticksCount:
 ;   Stack1 -- Current sticks count
 ; Returns
 ;   AX -- Sticks count
-Game.Logic.GetComputerMove:
+Game.Logic.Public.GetComputerMove:
     push bp
     mov bp, sp
 
@@ -119,7 +119,7 @@ Game.Logic.GetComputerMove:
 ;   Stack2 -- Pointer to TMatchState
 ; Returns
 ;   AX -- TRUE if move is valid, FALSE otherwise
-Game.Logic.IsValidMove:
+Game.Logic.Public.IsValidMove:
     push bp
     mov bp, sp
     push bx

@@ -81,10 +81,10 @@ Game.Public.PlayMatch:
     mov word [Game.pTMatchState + Game.TMatchState.pszPlayer2Name], Game.szMode2Player2Name
 
     .MatchLoopStart:
-        call Game.Logic.DoesPlayer1StartRound
+        call Game.Logic.Public.DoesPlayer1StartRound
         mov [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn], al
 
-        call Game.Logic.GetSticksCount
+        call Game.Logic.Public.GetSticksCount
         mov [Game.pTMatchState + Game.TMatchState.bInitialSticksCount], al
         mov [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], al
 
