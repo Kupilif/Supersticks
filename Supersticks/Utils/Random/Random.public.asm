@@ -1,8 +1,18 @@
 include 'Utils\Random\Random.private.asm'
 
+; Parameters
+;   None
+; Returns
+;   None
 Random.Public.Initialize:
+    push cx
+    push dx
+
     call Random.Private.GetSystemTime
     mov [Random.wPreviousNumber], dx
+
+    pop dx
+    pop cx
     ret
 
 ; Parameters

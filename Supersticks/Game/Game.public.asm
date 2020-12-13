@@ -4,7 +4,7 @@ include 'Game\Game.private.asm'
 
 Game.Public.Initialize:
     call Game.UI.Public.Initialize
-    call Game.Logic.Public.Initialize
+    call Game.Logic.Public.InitializeOnce
     ret
 
 Game.Public.Finalize:
@@ -59,7 +59,8 @@ Game.Public.PlayMatch:
     push bx
     push cx
 
-    mov byte [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn], TRUE
+    push word [bp + 4]
+    call Game.Logic.Public.Initialize
 
     mov word [Game.pTMatchState + Game.TMatchState.wPlayer1Score], 0
     mov word [Game.pTMatchState + Game.TMatchState.wPlayer2Score], 0
@@ -80,8 +81,12 @@ Game.Public.PlayMatch:
     mov word [Game.pTMatchState + Game.TMatchState.pszPlayer2Name], Game.szMode2Player2Name
 
     .MatchLoopStart:
-        mov byte [Game.pTMatchState + Game.TMatchState.bInitialSticksCount], 5
-        mov byte [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], 5
+        call Game.Logic.DoesPlayer1StartRound
+        mov [Game.pTMatchState + Game.TMatchState.bIsFirstPlayerTurn], al
+
+        call Game.Logic.GetSticksCount
+        mov [Game.pTMatchState + Game.TMatchState.bInitialSticksCount], al
+        mov [Game.pTMatchState + Game.TMatchState.bCurrentSticksCount], al
 
         push cx
         push Game.Private.GetUserMove

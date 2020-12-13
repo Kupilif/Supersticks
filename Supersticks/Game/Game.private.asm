@@ -77,7 +77,7 @@ Game.Private.GetComputerMove:
     cmp ax, FALSE
     je @F
 
-    mov ax, 1
+    call Game.Logic.GetComputerMove
 
 @@:
     ret 4
@@ -91,5 +91,4 @@ Game.Private.GetUserMove:
     push word [bp + 6]
     push word [bp + 4]
     call Game.UI.Public.GetUserMove
-
     ret 4
