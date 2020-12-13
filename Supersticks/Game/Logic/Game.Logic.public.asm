@@ -47,43 +47,6 @@ Game.Logic.Public.Initialize:
     ret 2
 
 ; Parameters
-;   Stack1 -- Pointer to TMatchState
-; Returns
-;   AX -- TRUE if game is over, otherwise FALSE
-Game.Logic.Public.IsGameOver:
-    push bp
-    mov bp, sp
-    push bx
-
-    mov ax, FALSE
-    mov bx, [bp + 4]
-    cmp byte [bx + Game.TMatchState.bCurrentSticksCount], 0
-    jg .End
-    mov ax, TRUE
-
-.End:
-    pop bx
-    pop bp
-    ret 2
-
-; Parameters
-;   Stack1 -- Pointer to TMatchState
-; Returns
-;   AX -- TRUE if player 1 wins, FALSE otherwise
-Game.Logic.Public.GetWinner:
-    push bp
-    mov bp, sp
-    push bx
-
-    xor ah, ah
-    mov bx, [bp + 4]
-    mov al, [bx + Game.TMatchState.bIsFirstPlayerTurn]
-
-    pop bx
-    pop bp
-    ret 2
-
-; Parameters
 ;   None
 ; Returns
 ;   AX -- TRUE if player 1 starts round, FALSE otherwise
@@ -119,3 +82,40 @@ Game.Logic.GetSticksCount:
 Game.Logic.GetComputerMove:
     mov ax, 1
     ret
+
+; Parameters
+;   Stack1 -- Pointer to TMatchState
+; Returns
+;   AX -- TRUE if game is over, otherwise FALSE
+Game.Logic.Public.IsGameOver:
+    push bp
+    mov bp, sp
+    push bx
+
+    mov ax, FALSE
+    mov bx, [bp + 4]
+    cmp byte [bx + Game.TMatchState.bCurrentSticksCount], 0
+    jg .End
+    mov ax, TRUE
+
+.End:
+    pop bx
+    pop bp
+    ret 2
+
+; Parameters
+;   Stack1 -- Pointer to TMatchState
+; Returns
+;   AX -- TRUE if player 1 wins, FALSE otherwise
+Game.Logic.Public.GetWinner:
+    push bp
+    mov bp, sp
+    push bx
+
+    xor ah, ah
+    mov bx, [bp + 4]
+    mov al, [bx + Game.TMatchState.bIsFirstPlayerTurn]
+
+    pop bx
+    pop bp
+    ret 2
