@@ -133,9 +133,8 @@ Game.Logic.Public.IsValidMove:
     cmp word [bp + 4], Game.Logic.MAX_STICKS_COUNT_PER_MOVE
     ja .End
 
-    xor ch, ch
     mov bx, [bp + 6]
-    mov cl, [bx + Game.TMatchState.bCurrentSticksCount]
+    movzx cx, [bx + Game.TMatchState.bCurrentSticksCount]
     cmp [bp + 4], cx
     ja .End
 
@@ -176,9 +175,8 @@ Game.Logic.Public.GetWinner:
     mov bp, sp
     push bx
 
-    xor ah, ah
     mov bx, [bp + 4]
-    mov al, [bx + Game.TMatchState.bIsFirstPlayerTurn]
+    movzx ax, [bx + Game.TMatchState.bIsFirstPlayerTurn]
 
     pop bx
     pop bp

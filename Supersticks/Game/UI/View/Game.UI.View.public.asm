@@ -221,8 +221,7 @@ Game.UI.View.Public.ShowGameScreen:
     push word [bp + 4]
     call Game.UI.View.Private.SetTurnMarker
 
-    xor ax, ax
-    mov al, [bx + Game.TMatchState.bInitialSticksCount]
+    movzx ax, [bx + Game.TMatchState.bInitialSticksCount]
     push ax 
     call Display.Public.ConfigureSticksPosition
 
@@ -230,8 +229,7 @@ Game.UI.View.Public.ShowGameScreen:
     call Game.UI.View.Private.GetSticksColor
 
     push ax
-    xor ax, ax
-    mov al, [bx + Game.TMatchState.bCurrentSticksCount]
+    movzx ax, [bx + Game.TMatchState.bCurrentSticksCount]
     push ax
     call Display.Public.DrawSticks
 
@@ -258,9 +256,8 @@ Game.UI.View.Public.UpdateGameScreen:
     call Game.UI.View.Private.GetSticksColor
 
     push ax
-    xor ax, ax
     mov bx, [bp + 4]
-    mov al, [bx + Game.TMatchState.bCurrentSticksCount]
+    movzx ax, [bx + Game.TMatchState.bCurrentSticksCount]
     push ax
     call Display.Public.DrawSticks
 
