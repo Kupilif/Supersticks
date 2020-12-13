@@ -67,6 +67,23 @@ Game.Logic.Public.IsGameOver:
     ret 2
 
 ; Parameters
+;   Stack1 -- Pointer to TMatchState
+; Returns
+;   AX -- TRUE if player 1 wins, FALSE otherwise
+Game.Logic.Public.GetWinner:
+    push bp
+    mov bp, sp
+    push bx
+
+    xor ah, ah
+    mov bx, [bp + 4]
+    mov al, [bx + Game.TMatchState.bIsFirstPlayerTurn]
+
+    pop bx
+    pop bp
+    ret 2
+
+; Parameters
 ;   None
 ; Returns
 ;   AX -- TRUE if player 1 starts round, FALSE otherwise

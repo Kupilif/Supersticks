@@ -48,7 +48,8 @@ Game.Private.PlayRound:
     jmp .PlayerMove
 
 .GameOver:
-    mov al, [bx + Game.TMatchState.bIsFirstPlayerTurn]
+    push bx
+    call Game.Logic.Public.GetWinner
     mov [bx + Game.TMatchState.bIsFirstPlayerWin], al
 
     push word [bp + 6]
