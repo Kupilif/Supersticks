@@ -10,25 +10,24 @@ Game.Logic.Private.HowMuchSticksTakeToWin:
     push bx
 
     mov ax, [bp + 4]
-
-    cmp ax, Game.Logic.MIN_STICKS_COUNT_PER_MOVE
-    je .VictoryNotPossible
-
     mov bl, Game.Logic.MIN_STICKS_COUNT_PER_MOVE + Game.Logic.MAX_STICKS_COUNT_PER_MOVE
     div bl ; AL -- Quotient, AH -- Remainder
 
-    test ah, ah
-    jz .VictoryNotPossible
+    cmp ah, Game.Logic.MIN_STICKS_COUNT_PER_MOVE
+    jge @F
 
-    test al, al
-    jnz @F
+    mov ax, Game.Logic.MAX_STICKS_COUNT_PER_MOVE
+    jmp .End
+@@:
     sub ah, Game.Logic.MIN_STICKS_COUNT_PER_MOVE
+
+    cmp ah, Game.Logic.MIN_STICKS_COUNT_PER_MOVE
+    jge @F
+
+    xor ax, ax
+    jmp .End
 @@:
     movzx ax, ah
-    jmp .End
-
-.VictoryNotPossible:
-    xor ax, ax
 
 .End:
     pop bx

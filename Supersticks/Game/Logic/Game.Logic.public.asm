@@ -158,8 +158,8 @@ Game.Logic.Public.IsGameOver:
 
     mov ax, FALSE
     mov bx, [bp + 4]
-    cmp byte [bx + Game.TMatchState.bCurrentSticksCount], 0
-    jg .End
+    cmp byte [bx + Game.TMatchState.bCurrentSticksCount], Game.Logic.MIN_STICKS_COUNT_PER_MOVE
+    jae .End
     mov ax, TRUE
 
 .End:
