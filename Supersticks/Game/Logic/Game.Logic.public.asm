@@ -84,6 +84,39 @@ Game.Logic.GetComputerMove:
     ret
 
 ; Parameters
+;   Stack1 -- Sticks count
+;   Stack2 -- Pointer to TMatchState
+; Returns
+;   AX -- TRUE if move is valid, FALSE otherwise
+Game.Logic.IsValidMove:
+    push bp
+    mov bp, sp
+    push bx
+    push cx
+
+    mov ax, FALSE
+
+    cmp word [bp + 4], Game.Logic.MIN_STICKS_COUNT_PER_MOVE
+    jb .End
+
+    cmp word [bp + 4], Game.Logic.MAX_STICKS_COUNT_PER_MOVE
+    ja .End
+
+    xor ch, ch
+    mov bx, [bp + 6]
+    mov cl, [bx + Game.TMatchState.bCurrentSticksCount]
+    cmp [bp + 4], cx
+    ja .End
+
+    mov ax, TRUE
+
+.End:
+    pop cx
+    pop bx
+    pop bp
+    ret 4
+
+; Parameters
 ;   Stack1 -- Pointer to TMatchState
 ; Returns
 ;   AX -- TRUE if game is over, otherwise FALSE

@@ -71,6 +71,9 @@ Game.Private.PlayRound:
 ; Returns
 ;   AX -- Sticks count, FALSE if match was cancelled
 Game.Private.GetComputerMove:
+    push bp
+    mov bp, sp
+
     push word [bp + 6]
     push word [bp + 4]
     call Game.UI.Public.WaitForComputerMove
@@ -81,6 +84,7 @@ Game.Private.GetComputerMove:
     call Game.Logic.GetComputerMove
 
 @@:
+    pop bp
     ret 4
 
 ; Parameters
@@ -89,7 +93,29 @@ Game.Private.GetComputerMove:
 ; Returns
 ;   AX -- Sticks count, FALSE if match was cancelled
 Game.Private.GetUserMove:
-    push word [bp + 6]
-    push word [bp + 4]
-    call Game.UI.Public.GetUserMove
+    push bp
+    mov bp, sp
+    push cx
+    
+    .InputLoopStart:
+        push word [bp + 6]
+        push word [bp + 4]
+        call Game.UI.Public.GetUserMove
+
+        cmp ax, FALSE
+        je .InputLoopEnd
+
+        mov cx, ax
+        push word [bp + 4]
+        push ax
+        call Game.Logic.IsValidMove
+
+        cmp ax, FALSE
+        je .InputLoopStart
+
+        mov ax, cx
+    .InputLoopEnd:
+
+    pop cx
+    pop bp
     ret 4
