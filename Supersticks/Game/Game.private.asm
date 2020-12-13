@@ -73,6 +73,7 @@ Game.Private.PlayRound:
 Game.Private.GetComputerMove:
     push bp
     mov bp, sp
+    push bx
 
     push word [bp + 6]
     push word [bp + 4]
@@ -81,9 +82,13 @@ Game.Private.GetComputerMove:
     cmp ax, FALSE
     je @F
 
+    mov bx, [bp + 4]
+    movzx ax, [bx + Game.TMatchState.bCurrentSticksCount]
+    push ax
     call Game.Logic.GetComputerMove
 
 @@:
+    pop bx
     pop bp
     ret 4
 
