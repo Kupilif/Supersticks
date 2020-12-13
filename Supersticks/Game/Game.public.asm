@@ -63,8 +63,6 @@ Game.Public.PlayMatch:
 
     mov word [Game.pTMatchState + Game.TMatchState.wPlayer1Score], 0
     mov word [Game.pTMatchState + Game.TMatchState.wPlayer2Score], 0
-    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer1Name], Game.szPlayer1Name
-    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer2Name], Game.szPlayer2Name
 
     mov bx, [bp + 4]
     cmp byte [bx + Game.TMatchConfiguration.bMode], Game.MODE_1
@@ -72,10 +70,14 @@ Game.Public.PlayMatch:
 
 .ComputerVsUser:
     mov cx, Game.Private.GetComputerMove
+    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer1Name], Game.szSingleplayerPlayer1Name
+    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer2Name], Game.szSingleplayerPlayer2Name
     jmp .MatchLoopStart
 
 .UserVsUser:
     mov cx, Game.Private.GetUserMove
+    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer1Name], Game.szMultiplayerPlayer1Name
+    mov word [Game.pTMatchState + Game.TMatchState.pszPlayer2Name], Game.szMultiplayerPlayer2Name
 
     .MatchLoopStart:
         mov byte [Game.pTMatchState + Game.TMatchState.bInitialSticksCount], 5
