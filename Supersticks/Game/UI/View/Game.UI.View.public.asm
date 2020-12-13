@@ -29,19 +29,19 @@ Game.UI.View.Public.ShowGameModeSelectScreen:
     push Game.UI.View.GAME_MODE_SELECT_SCREEN_TITLE_COLUMN
     push Game.UI.View.GAME_MODE_SELECT_SCREEN_TITLE_ROW
     push Game.UI.View.szTitle
-    call Display.Public.PrintString
+    call Display.Public.PrintStringAtPosition
 
     push Game.UI.View.GAME_MODE_SELECT_SCREEN_MODE_1_COLOR
     push Game.UI.View.GAME_MODE_SELECT_SCREEN_MODE_1_COLUMN
     push Game.UI.View.GAME_MODE_SELECT_SCREEN_MODE_1_ROW
     push Game.UI.View.szGameMode1
-    call Display.Public.PrintString
+    call Display.Public.PrintStringAtPosition
 
     push Game.UI.View.GAME_MODE_SELECT_SCREEN_MODE_2_COLOR
     push Game.UI.View.GAME_MODE_SELECT_SCREEN_MODE_2_COLUMN
     push Game.UI.View.GAME_MODE_SELECT_SCREEN_MODE_2_ROW
     push Game.UI.View.szGameMode2
-    call Display.Public.PrintString
+    call Display.Public.PrintStringAtPosition
 
     push word [bp + 4]
     call Game.UI.View.Private.SetGameModeSelectScreenSelector
@@ -77,25 +77,25 @@ Game.UI.View.Public.ShowGameComplexitySelectScreen:
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_TITLE_COLUMN
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_TITLE_ROW
     push Game.UI.View.szTitle
-    call Display.Public.PrintString
+    call Display.Public.PrintStringAtPosition
 
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_1_COLOR
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_1_COLUMN
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_1_ROW
     push Game.UI.View.szGameComplexity1
-    call Display.Public.PrintString
+    call Display.Public.PrintStringAtPosition
 
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_2_COLOR
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_2_COLUMN
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_2_ROW
     push Game.UI.View.szGameComplexity2
-    call Display.Public.PrintString
+    call Display.Public.PrintStringAtPosition
 
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_3_COLOR
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_3_COLUMN
     push Game.UI.View.GAME_COMPLEXITY_SELECT_SCREEN_COMPLEXITY_3_ROW
     push Game.UI.View.szGameComplexity3
-    call Display.Public.PrintString
+    call Display.Public.PrintStringAtPosition
 
     push word [bp + 4]
     call Game.UI.View.Private.SetGameComplexitySelectScreenSelector
@@ -131,19 +131,19 @@ Game.UI.View.Public.ShowGameExitConfirmationScreen:
     push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_TITLE_COLUMN
     push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_TITLE_ROW
     push Game.UI.View.szGameExitConfirmation
-    call Display.Public.PrintString
+    call Display.Public.PrintStringAtPosition
 
     push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_1_COLOR
     push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_1_COLUMN
     push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_1_ROW
     push Game.UI.View.szGameExitConfirmationOption1
-    call Display.Public.PrintString
+    call Display.Public.PrintStringAtPosition
 
     push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_2_COLOR
     push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_2_COLUMN
     push Game.UI.View.GAME_EXIT_CONFIRMATION_SCREEN_OPTION_2_ROW
     push Game.UI.View.szGameExitConfirmationOption2
-    call Display.Public.PrintString
+    call Display.Public.PrintStringAtPosition
 
     push word [bp + 4]
     call Game.UI.View.Private.SetGameExitConfirmationScreenSelector
@@ -210,13 +210,13 @@ Game.UI.View.Public.ShowGameScreen:
     push Game.UI.View.GAME_SCREEN_PLAYER_1_NAME_COLUMN
     push Game.UI.View.GAME_SCREEN_SCORE_ROW
     push word [bx + Game.TMatchState.pszPlayer1Name]
-    call Display.Public.PrintString
+    call Display.Public.PrintStringAtPosition
 
     push Game.UI.View.GAME_SCREEN_SCORE_ROW_COLOR
     push Game.UI.View.GAME_SCREEN_PLAYER_2_NAME_COLUMN
     push Game.UI.View.GAME_SCREEN_SCORE_ROW
     push word [bx + Game.TMatchState.pszPlayer2Name]
-    call Display.Public.PrintString
+    call Display.Public.PrintStringAtPosition
 
     push word [bp + 4]
     call Game.UI.View.Private.SetTurnMarker

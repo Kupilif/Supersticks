@@ -204,7 +204,7 @@ Display.Public.PrintCharacter:
 ;   Stack4 -- Color
 ; Returns
 ;   None
-Display.Public.PrintString:
+Display.Public.PrintStringAtPosition:
     push bp
     mov bp, sp
     push ax
