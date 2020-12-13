@@ -1,5 +1,9 @@
 include 'System\Display\Display.private.asm'
 
+; Parameters
+;   None
+; Returns
+;   None
 Display.Public.Initialize:
     push ax
     push bx
@@ -14,6 +18,10 @@ Display.Public.Initialize:
     pop ax
     ret
 
+; Parameters
+;   None
+; Returns
+;   None
 Display.Public.Finalize:
     push ax
 
@@ -25,6 +33,10 @@ Display.Public.Finalize:
     pop ax
     ret
 
+; Parameters
+;   None
+; Returns
+;   None
 Display.Public.Clear:
     push es
     push di

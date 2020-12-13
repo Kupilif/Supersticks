@@ -1,4 +1,3 @@
-
 ; Parameters
 ;   Stack1 -- Current sticks count
 ; Returns

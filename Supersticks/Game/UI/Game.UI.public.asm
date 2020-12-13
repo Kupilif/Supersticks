@@ -2,10 +2,18 @@ include 'Game\UI\View\Game.UI.View.public.asm'
 include 'Game\UI\Controller\Game.UI.Controller.public.asm'
 include 'Game\UI\Game.UI.private.asm'
 
+; Parameters
+;   None
+; Returns
+;   None
 Game.UI.Public.Initialize:
     call Game.UI.View.Public.Initialize
     ret
 
+; Parameters
+;   None
+; Returns
+;   None
 Game.UI.Public.Finalize:
     call Game.UI.View.Public.Finalize
     ret

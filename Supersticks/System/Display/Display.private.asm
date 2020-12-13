@@ -13,6 +13,8 @@ Display.Private.GetCurrentVideoInfo:
 ;   AL -- Video mode number
 ; Returns
 ;   None
+; Remarks
+;   AH value is undefined after execution
 Display.Private.SetVideoMode:
     mov ah, 0x00
     int 0x10
@@ -22,6 +24,8 @@ Display.Private.SetVideoMode:
 ;   AL -- Video page number
 ; Returns
 ;   None
+; Remarks
+;   AH value is undefined after execution
 Display.Private.SetActiveVideoPage:
     mov ah, 0x05
     int 0x10
@@ -56,6 +60,8 @@ Display.Private.SetCursorPosition:
 ;   BL -- Color
 ; Returns
 ;   None
+; Remarks
+;   AH value is undefined after execution
 Display.Private.PrintCharacter:
     mov ah, 0x0E
     int 0x10

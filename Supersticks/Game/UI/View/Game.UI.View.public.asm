@@ -1,6 +1,10 @@
 include 'System\Display\Display.public.asm'
 include 'Game\UI\View\Game.UI.View.private.asm'
 
+; Parameters
+;   None
+; Returns
+;   None
 Game.UI.View.Public.Initialize:
     call Display.Public.Initialize
     call Display.Public.Clear
@@ -11,6 +15,10 @@ Game.UI.View.Public.Initialize:
     call Display.Public.ConfigureSticksSize
     ret
 
+; Parameters
+;   None
+; Returns
+;   None
 Game.UI.View.Public.Finalize:
     call Display.Public.Finalize
     ret
