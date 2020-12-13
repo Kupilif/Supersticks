@@ -109,7 +109,7 @@ Game.UI.Private.GetGameActionFromUser:
 ;   Circle starts at zero and ends at specified maximum value
 Game.UI.Private.CircularIncrementByOne:
     cmp cx, dx
-    jl .LessThanMaximum
+    jb .LessThanMaximum
     xor cx, cx
     jmp @F
 .LessThanMaximum:

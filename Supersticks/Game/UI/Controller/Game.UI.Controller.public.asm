@@ -49,9 +49,9 @@ Game.UI.Controller.Public.GetUserMove:
 
     @@:
         cmp ax, Keyboard.0
-        jl .InputLoopStart
+        jb .InputLoopStart
         cmp ax, Keyboard.9
-        jg .InputLoopStart
+        ja .InputLoopStart
 
         sub ax, Keyboard.0
 
